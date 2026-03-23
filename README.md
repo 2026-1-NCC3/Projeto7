@@ -46,55 +46,26 @@ O projeto visa desenvolver uma plataforma web responsiva para gerenciar as ediç
 |LICENSE
 ```
 
-## 🛠 Instalação
+## 📲 Instalação (via APK)
 
-📖 Guia de Instalação e Execução<br>
-✅ Pré-requisitos<br>
-Antes de começar, certifique-se de ter instalado:<br>
-```
-Node.js<br>
-npm<br>
-Git<br>
-```
+Siga os passos abaixo para instalar o aplicativo no seu dispositivo Android:
 
-🔽 Clonando o repositório<br>
-Execute os comandos abaixo para clonar o projeto e acessar a pasta:<br>
 ```
-git clone https://github.com/2025-2-MCC2/Projeto2<br>
-cd Projeto6<br>
-```
-⚙️ Configuração do Backend e Frontend<br>
-
-Acesse a pasta do servidor e instale as dependências:<br>
-```
-cd backend/src<br>
-npm install<br>
+1. 📥 Baixe o arquivo APK do aplicativo  
+2. 📂 Abra o arquivo APK baixado  
+3. ⚙️ Toque em **Instalar** e aguarde a conclusão  
+4. ✅ Após a instalação, abra o app normalmente
 ```
 
-Inicie o servidor:<br>
+---
+
+## 📋 Requisitos
+
 ```
-node server.js<br>
+- 📱 Dispositivo Android  
+- 💾 Espaço disponível para instalação  
 ```
 
-
-
-🎨 Configuração do Frontend<br>
-
-Vá para a pasta do cliente e instale as dependências:<br>
-```
-cd frontend<br>
-npm install<br>
-```
-Execute o projeto:<br>
-```
-npm start<br>
-```
-
-🌐 Endereços Locais<br>
-```
-Frontend: http://localhost:3000<br>
-Backend: http://localhost:8081<br>
-```
 
 ## 📋 Licença/License
 <a href="https://github.com/2026-1-NCC3/Projeto7">Flavor Health Tech</a> © 2026 by <a href="https://example.com">Felipe Mathey,Katiê Prado,Ricardo Oliveira,Eric Aloise</a> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
