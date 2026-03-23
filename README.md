@@ -97,10 +97,10 @@ Backend: http://localhost:8081<br>
 ```
 
 ## 📋 Licença/License
-DevLiderança© 2025 by <a href="https://github.com/2025-2-MCC2/Projeto6">Eduarda Padilla, Lais Navarro, Ricardo Oliveira, Enzo Sakita, Eric Aloise</a> is licensed under CC BY-SA 4.0 
+<a href="https://github.com/2026-1-NCC3/Projeto7">Flavor Health Tech</a> © 2026 by <a href="https://example.com">Felipe Mathey,Katiê Prado,Ricardo Oliveira,Eric Aloise</a> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
 
 ## 🎓 Referências
 
 Aqui estão as referências usadas no projeto.
 
-1. <https://liderancasempaticas.com/>
+1. <https://mayayamamoto.com.br/>
