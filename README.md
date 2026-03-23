@@ -22,7 +22,7 @@
 
 ## <p align="center"> Descrição
 
-O projeto visa desenvolver uma plataforma web responsiva para gerenciar as edições do projeto, controlando equipes, atividades, metas e resultados. A aplicação permitirá o acompanhamento transparente das ações e o desenvolvimento de habilidades de gestão, liderança e empreendedorismo entre alunos de graduação. O sistema incluirá funcionalidades como cadastro de equipes, geração de relatórios e autenticação de usuários.
+Desenvolver uma solução digital integrada, composta por aplicativo mobile, plataforma web. O sistema terá como foco a centralização de prontuários eletrônicos, a prescrição personalizada de exercícios e o acompanhamento contínuo da evolução dos pacientes, promovendo maior organização, eficiência no atendimento e tomada de decisão baseada em dados clínicos.
 
 ## 🛠 Estrutura de pastas
 
