@@ -6,21 +6,19 @@
 
 
 
-# <p align="center"> DevLiderança 
+# <p align="center"> Flavor Health Tech
 
 ## Integrantes:
-- [Eduarda Padilla](https://www.linkedin.com/in/eduardapadilla/)
-- [Lais Navarro](https://www.linkedin.com/in/laisnavarro3110/)
+- [Felipe Mathey](https://www.linkedin.com/in/felipe-mathey-47772b357/)
+- [Katiê Prado](https://www.linkedin.com/in/kati%C3%AA-prado-388129312/)
 - [Ricardo Oliveira](https://www.linkedin.com/in/ricardoojunior/)
-- [Enzo Sakita](https://www.linkedin.com/in/enzo-sakita-117801364/)
-- [Eric Aloise](https://github.com/EricAloise)
+- [Eric Aloise](https://www.linkedin.com/in/eric-aloise-de-sousa-125881367/)
 
 ## Professores Orientadores:
-- [David Lemes](https://www.linkedin.com/in/dolemes/)
+- [Vctor Bruno Alexander Rosetti de Quiroz ](https://www.linkedin.com/in/victorbarq/)
 - [Katia Milani](https://www.linkedin.com/in/katia-bossi/)
-- [Cristina Machado](https://www.linkedin.com/in/cristina-machado-corr%C3%AAa-leite-630309160/)
-- [Leonardo Lugoboni](https://www.linkedin.com/in/leonardo-fabris-lugoboni-a3369416/)
-- [Francisco Escobar](https://www.linkedin.com/in/francisco-escobar/)
+- [Rodrigo da Rosa ](https://www.linkedin.com/in/rodrigo-da-rosa-phd/)
+- [Marco Aurelio Lima Barbosa ](https://www.linkedin.com/in/marco-aurelio-lima-barbosa/)
 
 ## <p align="center"> Descrição
 
@@ -34,22 +32,16 @@ O projeto visa desenvolver uma plataforma web responsiva para gerenciar as ediç
 
 |-->Documentos
 |   |-->Entrega 1
-|   |   |-->Calculo 2
-|   |   |-->Desenvolvimento Web Full Stack
-|   |   |-->Banco De Dados
-|   |   |-->Gestão Empresarial
-|   |   |-->Projeto Interdisciplinar
+|   |   |-->Análise Descritiva de Dados
+|   |   |-->Projeto Interdisciplinar: Aplicativo Móvel
+|   |   |-->Programação Orientada a Objetivos e Estrutura de Dados
+|   |   |-->Programação para Dispositivos Móveis
 |   |
 |   |-->Entrega 2
-|       |-->Calculo 2
-|       |-->Desenvolvimento Web Full Stack
-|       |-->Banco De Dados
-|       |-->Gestão Empresarial
-|       |-->Projeto Interdisciplinar
-|
-|-->Backend
-|--> Frontend
-|
+|   |   |-->Análise Descritiva de Dados
+|   |   |-->Projeto Interdisciplinar: Aplicativo Móvel
+|   |   |-->Programação Orientada a Objetivos e Estrutura de Dados
+|   |   |-->Programação para Dispositivos Móveis
 |README.md
 |LICENSE
 ```
