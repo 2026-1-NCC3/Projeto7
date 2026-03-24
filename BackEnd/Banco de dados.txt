@@ -1,0 +1,287 @@
+CREATE DATABASE IF NOT EXISTS maya_fisioterapia
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+USE maya_fisioterapia;
+
+CREATE TABLE perfis (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(50) NOT NULL UNIQUE,
+  descricao VARCHAR(255),
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE usuarios (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  perfil_id INT UNSIGNED NOT NULL,
+  nome_completo VARCHAR(150) NOT NULL,
+  email VARCHAR(150) NOT NULL UNIQUE,
+  senha_hash VARCHAR(255) NOT NULL,
+  telefone VARCHAR(20),
+  foto_url VARCHAR(500),
+  ativo BOOLEAN NOT NULL DEFAULT TRUE,
+  aceitou_lgpd BOOLEAN NOT NULL DEFAULT FALSE,
+  data_aceite_lgpd DATETIME,
+  ultimo_acesso DATETIME,
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT fk_usuarios_perfil FOREIGN KEY (perfil_id) REFERENCES perfis (id)
+);
+
+CREATE TABLE tokens_recuperacao (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  usuario_id INT UNSIGNED NOT NULL,
+  token VARCHAR(255) NOT NULL UNIQUE,
+  expira_em DATETIME NOT NULL,
+  usado BOOLEAN NOT NULL DEFAULT FALSE,
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_tokens_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios (id) ON DELETE CASCADE
+);
+
+CREATE TABLE pacientes (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  usuario_id INT UNSIGNED NOT NULL UNIQUE,
+  data_nascimento DATE NOT NULL,
+  cpf VARCHAR(14) UNIQUE,
+  sexo ENUM('M', 'F', 'Outro') NOT NULL,
+  endereco VARCHAR(300),
+  convenio VARCHAR(100),
+  numero_convenio VARCHAR(100),
+  observacoes_gerais TEXT,
+  status ENUM('ativo', 'inativo', 'alta') NOT NULL DEFAULT 'ativo',
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT fk_pacientes_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios (id) ON DELETE CASCADE
+);
+
+CREATE TABLE contatos_emergencia (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  paciente_id INT UNSIGNED NOT NULL,
+  nome VARCHAR(150) NOT NULL,
+  parentesco VARCHAR(50),
+  telefone VARCHAR(20) NOT NULL,
+  CONSTRAINT fk_contato_paciente FOREIGN KEY (paciente_id) REFERENCES pacientes (id) ON DELETE CASCADE
+);
+
+CREATE TABLE prontuarios (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  paciente_id INT UNSIGNED NOT NULL UNIQUE,
+  profissional_id INT UNSIGNED NOT NULL,
+  data_abertura DATE NOT NULL,
+  queixa_principal TEXT,
+  historico_clinico TEXT,
+  data_fechamento DATE,
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT fk_prontuario_paciente FOREIGN KEY (paciente_id) REFERENCES pacientes (id),
+  CONSTRAINT fk_prontuario_profissional FOREIGN KEY (profissional_id) REFERENCES usuarios (id)
+);
+
+CREATE TABLE evolucoes (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  prontuario_id INT UNSIGNED NOT NULL,
+  profissional_id INT UNSIGNED NOT NULL,
+  data_sessao DATE NOT NULL,
+  hora_inicio TIME,
+  hora_fim TIME,
+  observacoes TEXT NOT NULL,
+  nivel_dor TINYINT UNSIGNED CHECK (nivel_dor BETWEEN 0 AND 10),
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_evolucao_prontuario FOREIGN KEY (prontuario_id) REFERENCES prontuarios (id) ON DELETE CASCADE,
+  CONSTRAINT fk_evolucao_profissional FOREIGN KEY (profissional_id) REFERENCES usuarios (id)
+);
+
+CREATE TABLE avaliacoes_funcionais (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  prontuario_id INT UNSIGNED NOT NULL,
+  profissional_id INT UNSIGNED NOT NULL,
+  data_avaliacao DATE NOT NULL,
+  peso_kg DECIMAL(5,2),
+  altura_cm DECIMAL(5,1),
+  imc DECIMAL(5,2),
+  postura_descricao TEXT,
+  amplitude_observacoes TEXT,
+  forca_muscular TEXT,
+  resultado_geral TEXT,
+  liberado_ao_paciente BOOLEAN NOT NULL DEFAULT FALSE,
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_avaliacao_prontuario FOREIGN KEY (prontuario_id) REFERENCES prontuarios (id) ON DELETE CASCADE,
+  CONSTRAINT fk_avaliacao_profissional FOREIGN KEY (profissional_id) REFERENCES usuarios (id)
+);
+
+CREATE TABLE categorias_exercicios (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100) NOT NULL UNIQUE,
+  descricao VARCHAR(255)
+);
+
+CREATE TABLE exercicios (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  categoria_id INT UNSIGNED,
+  titulo VARCHAR(150) NOT NULL,
+  descricao TEXT,
+  instrucoes TEXT,
+  duracao_seg SMALLINT UNSIGNED,
+  repeticoes SMALLINT UNSIGNED,
+  series TINYINT UNSIGNED,
+  nivel ENUM('iniciante', 'intermediario', 'avancado') NOT NULL DEFAULT 'iniciante',
+  ativo BOOLEAN NOT NULL DEFAULT TRUE,
+  criado_por INT UNSIGNED NOT NULL,
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT fk_exercicio_categoria FOREIGN KEY (categoria_id) REFERENCES categorias_exercicios (id) ON DELETE SET NULL,
+  CONSTRAINT fk_exercicio_criado_por FOREIGN KEY (criado_por) REFERENCES usuarios (id)
+);
+
+CREATE TABLE tags_exercicios (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE exercicio_tags (
+  exercicio_id INT UNSIGNED NOT NULL,
+  tag_id INT UNSIGNED NOT NULL,
+  PRIMARY KEY (exercicio_id, tag_id),
+  CONSTRAINT fk_et_exercicio FOREIGN KEY (exercicio_id) REFERENCES exercicios (id) ON DELETE CASCADE,
+  CONSTRAINT fk_et_tag FOREIGN KEY (tag_id) REFERENCES tags_exercicios (id) ON DELETE CASCADE
+);
+
+CREATE TABLE midias_exercicios (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  exercicio_id INT UNSIGNED NOT NULL,
+  tipo ENUM('video', 'imagem', 'gif') NOT NULL,
+  url VARCHAR(500) NOT NULL,
+  legenda VARCHAR(255),
+  ordem TINYINT UNSIGNED NOT NULL DEFAULT 1,
+  CONSTRAINT fk_midia_exercicio FOREIGN KEY (exercicio_id) REFERENCES exercicios (id) ON DELETE CASCADE
+);
+
+CREATE TABLE planos_exercicios (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  paciente_id INT UNSIGNED NOT NULL,
+  profissional_id INT UNSIGNED NOT NULL,
+  titulo VARCHAR(150) NOT NULL,
+  descricao TEXT,
+  data_inicio DATE NOT NULL,
+  data_fim DATE,
+  frequencia_desc VARCHAR(100),
+  ativo BOOLEAN NOT NULL DEFAULT TRUE,
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT fk_plano_paciente FOREIGN KEY (paciente_id) REFERENCES pacientes (id) ON DELETE CASCADE,
+  CONSTRAINT fk_plano_profissional FOREIGN KEY (profissional_id) REFERENCES usuarios (id)
+);
+
+CREATE TABLE itens_plano (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  plano_id INT UNSIGNED NOT NULL,
+  exercicio_id INT UNSIGNED NOT NULL,
+  ordem TINYINT UNSIGNED NOT NULL DEFAULT 1,
+  series TINYINT UNSIGNED,
+  repeticoes SMALLINT UNSIGNED,
+  duracao_seg SMALLINT UNSIGNED,
+  orientacoes TEXT,
+  CONSTRAINT fk_item_plano FOREIGN KEY (plano_id) REFERENCES planos_exercicios (id) ON DELETE CASCADE,
+  CONSTRAINT fk_item_exercicio FOREIGN KEY (exercicio_id) REFERENCES exercicios (id)
+);
+
+CREATE TABLE registros_execucao (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  paciente_id INT UNSIGNED NOT NULL,
+  item_plano_id INT UNSIGNED NOT NULL,
+  data_execucao DATE NOT NULL,
+  hora_execucao TIME,
+  concluido BOOLEAN NOT NULL DEFAULT FALSE,
+  nivel_dor TINYINT UNSIGNED CHECK (nivel_dor BETWEEN 0 AND 10),
+  observacoes VARCHAR(500),
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_registro_paciente FOREIGN KEY (paciente_id) REFERENCES pacientes (id) ON DELETE CASCADE,
+  CONSTRAINT fk_registro_item_plano FOREIGN KEY (item_plano_id) REFERENCES itens_plano (id) ON DELETE CASCADE
+);
+
+CREATE TABLE consultas (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  paciente_id INT UNSIGNED NOT NULL,
+  profissional_id INT UNSIGNED NOT NULL,
+  data_hora DATETIME NOT NULL,
+  duracao_min SMALLINT UNSIGNED NOT NULL DEFAULT 60,
+  modalidade ENUM('presencial', 'teleconsulta') NOT NULL DEFAULT 'presencial',
+  status ENUM('agendada', 'confirmada', 'realizada', 'cancelada', 'falta') NOT NULL DEFAULT 'agendada',
+  observacoes VARCHAR(500),
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT fk_consulta_paciente FOREIGN KEY (paciente_id) REFERENCES pacientes (id) ON DELETE CASCADE,
+  CONSTRAINT fk_consulta_profissional FOREIGN KEY (profissional_id) REFERENCES usuarios (id)
+);
+
+CREATE TABLE notificacoes (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  usuario_id INT UNSIGNED NOT NULL,
+  tipo ENUM('lembrete_exercicio', 'lembrete_consulta', 'novo_plano', 'mensagem', 'outro') NOT NULL,
+  titulo VARCHAR(150) NOT NULL,
+  mensagem TEXT NOT NULL,
+  lida BOOLEAN NOT NULL DEFAULT FALSE,
+  enviada_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  lida_em DATETIME,
+  referencia_id INT UNSIGNED,
+  referencia_tipo VARCHAR(50),
+  CONSTRAINT fk_notificacao_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios (id) ON DELETE CASCADE
+);
+
+CREATE TABLE mensagens (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  remetente_id INT UNSIGNED NOT NULL,
+  destinatario_id INT UNSIGNED NOT NULL,
+  assunto VARCHAR(200),
+  conteudo TEXT NOT NULL,
+  lida BOOLEAN NOT NULL DEFAULT FALSE,
+  lida_em DATETIME,
+  enviada_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_msg_remetente FOREIGN KEY (remetente_id) REFERENCES usuarios (id) ON DELETE CASCADE,
+  CONSTRAINT fk_msg_destinatario FOREIGN KEY (destinatario_id) REFERENCES usuarios (id) ON DELETE CASCADE
+);
+
+CREATE TABLE logs_auditoria (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  usuario_id INT UNSIGNED,
+  acao VARCHAR(100) NOT NULL,
+  tabela VARCHAR(100),
+  registro_id INT UNSIGNED,
+  detalhes JSON,
+  ip VARCHAR(45),
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_log_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios (id) ON DELETE SET NULL
+);
+
+CREATE INDEX idx_usuarios_email ON usuarios (email);
+CREATE INDEX idx_usuarios_perfil ON usuarios (perfil_id);
+CREATE INDEX idx_pacientes_status ON pacientes (status);
+CREATE INDEX idx_prontuarios_paciente ON prontuarios (paciente_id);
+CREATE INDEX idx_evolucoes_prontuario ON evolucoes (prontuario_id);
+CREATE INDEX idx_evolucoes_data ON evolucoes (data_sessao);
+CREATE INDEX idx_planos_paciente ON planos_exercicios (paciente_id);
+CREATE INDEX idx_planos_ativo ON planos_exercicios (ativo);
+CREATE INDEX idx_registros_paciente_data ON registros_execucao (paciente_id, data_execucao);
+CREATE INDEX idx_consultas_data ON consultas (data_hora);
+CREATE INDEX idx_consultas_paciente ON consultas (paciente_id);
+CREATE INDEX idx_consultas_profissional ON consultas (profissional_id);
+CREATE INDEX idx_notificacoes_usuario ON notificacoes (usuario_id, lida);
+CREATE INDEX idx_mensagens_destinatario ON mensagens (destinatario_id, lida);
+CREATE INDEX idx_midias_exercicio ON midias_exercicios (exercicio_id, ordem);
+
+INSERT INTO perfis (nome, descricao) VALUES
+('admin', 'Administrador com acesso total ao sistema'),
+('profissional', 'Fisioterapeuta: gerencia pacientes, prontuários e planos'),
+('paciente', 'Paciente: acessa seus planos e registra execuções');
+
+INSERT INTO categorias_exercicios (nome, descricao) VALUES
+('Coluna Vertebral', 'Exercícios para reequilíbrio e mobilidade da coluna'),
+('Postura Global', 'Exercícios de reeducação postural global (RPG)'),
+('Respiração', 'Técnicas de respiração diafragmática e consciente'),
+('Membros Inferiores', 'Exercícios para quadril, joelhos e tornozelos'),
+('Membros Superiores', 'Exercícios para ombros, cotovelos e punhos'),
+('Alongamento', 'Sequências de alongamento e flexibilidade');
+
+INSERT INTO tags_exercicios (nome) VALUES
+('rpg'), ('postura'), ('dor_lombar'), ('dor_cervical'), ('flexibilidade'),
+('fortalecimento'), ('respiracao'), ('equilibrio'), ('iniciante'), ('avancado');
