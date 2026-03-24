@@ -45,8 +45,6 @@ CREATE TABLE pacientes (
   cpf VARCHAR(14) UNIQUE,
   sexo ENUM('M', 'F', 'Outro') NOT NULL,
   endereco VARCHAR(300),
-  convenio VARCHAR(100),
-  numero_convenio VARCHAR(100),
   observacoes_gerais TEXT,
   status ENUM('ativo', 'inativo', 'alta') NOT NULL DEFAULT 'ativo',
   criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -165,6 +163,7 @@ CREATE TABLE planos_exercicios (
   data_inicio DATE NOT NULL,
   data_fim DATE,
   frequencia_desc VARCHAR(100),
+  frequencia_mes TINYINT UNSIGNED COMMENT 'Número de vezes por mês que o paciente deve realizar o plano',
   ativo BOOLEAN NOT NULL DEFAULT TRUE,
   criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   atualizado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -271,7 +270,6 @@ CREATE INDEX idx_midias_exercicio ON midias_exercicios (exercicio_id, ordem);
 
 INSERT INTO perfis (nome, descricao) VALUES
 ('admin', 'Administrador com acesso total ao sistema'),
-('profissional', 'Fisioterapeuta: gerencia pacientes, prontuários e planos'),
 ('paciente', 'Paciente: acessa seus planos e registra execuções');
 
 INSERT INTO categorias_exercicios (nome, descricao) VALUES
