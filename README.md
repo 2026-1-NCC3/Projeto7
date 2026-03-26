@@ -29,7 +29,7 @@ Desenvolver uma solução digital integrada, composta por aplicativo mobile, pla
 ```
 -Raiz<br>
 |<br>
-
+|-->Backend
 |-->Documentos
 |   |-->Entrega 1
 |   |   |-->Análise Descritiva de Dados
@@ -45,6 +45,14 @@ Desenvolver uma solução digital integrada, composta por aplicativo mobile, pla
 |README.md
 |LICENSE
 ```
+## 📋 Requisitos
+
+```
+- 📱 Dispositivo Android  
+- 💾 Espaço disponível para instalação  
+```
+
+---
 
 ## 📲 Instalação (via APK)
 
@@ -55,15 +63,6 @@ Siga os passos abaixo para instalar o aplicativo no seu dispositivo Android:
 2. 📂 Abra o arquivo APK baixado  
 3. ⚙️ Toque em **Instalar** e aguarde a conclusão  
 4. ✅ Após a instalação, abra o app normalmente
-```
-
----
-
-## 📋 Requisitos
-
-```
-- 📱 Dispositivo Android  
-- 💾 Espaço disponível para instalação  
 ```
 
 
