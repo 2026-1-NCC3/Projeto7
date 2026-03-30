@@ -1,66 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- Layout principal da tela -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:background="#F5F5F5"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- TÍTULO DA TELA -->
+
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
         android:text="Detalhes da Consulta"
         android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:layout_margin="16dp"/>
+        android:textStyle="bold" />
 
+    <!-- IMAGEM (LOGO / BOTÃO VOLTAR) -->
+    <ImageView
+        android:id="@+id/btnVoltar"
+        android:layout_width="198dp"
+        android:layout_height="62dp"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:src="@drawable/logo_semfundo" />
+
+    <!-- CARD DE DATA E HORÁRIO -->
     <LinearLayout
         android:orientation="vertical"
         android:background="#FFFFFF"
         android:padding="16dp"
         android:layout_margin="16dp"
-        android:elevation="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- DIA DA SEMANA -->
         <TextView
-            android:text="Quarta-feira\n25 de Abril"
-            android:textStyle="bold"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quarta-feira"
+            android:textStyle="bold" />
 
+        <!-- DATA -->
         <TextView
+            android:id="@+id/txtData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="25 de Abril"
+            android:textStyle="bold" />
+
+        <!-- HORÁRIO -->
+        <TextView
+            android:id="@+id/txtHorario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Horário: 10:00 - 11:00"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp" />
 
     </LinearLayout>
 
+    <!-- CARD DE ANOTAÇÕES -->
     <LinearLayout
-        android:orientation="vertical"
-        android:background="#FFFFFF"
-        android:padding="16dp"
-        android:layout_marginHorizontal="16dp"
-        android:elevation="4dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:background="#FFFFFF"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:padding="16dp">
 
+        <!-- TÍTULO -->
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Anotações"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
+        <!-- TEXTO DAS ANOTAÇÕES -->
         <TextView
-            android:text="• Foco na correção da postura cervical\n• Exercícios de relaxamento"
-            android:layout_marginTop="8dp"/>
+            android:id="@+id/txtAnotacoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="• Foco na correção da postura cervical\n• Exercícios de relaxamento" />
 
     </LinearLayout>
 
+    <!-- BOTÃO VER TAREFAS -->
     <Button
         android:id="@+id/btnVerTarefas"
-        android:text="VER TAREFAS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:backgroundTint="#6EC1C6"
-        android:textColor="#FFFFFF"/>
+        android:text="VER TAREFAS"
+        android:textColor="#FFFFFF" />
 
+    <!-- BOTÃO ENVIAR MENSAGEM -->
     <Button
         android:id="@+id/btnMensagem"
-        android:text="ENVIAR MENSAGEM"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:backgroundTint="#CCCCCC"/>
+        android:backgroundTint="#CCCCCC"
+        android:text="ENVIAR MENSAGEM" />
 
 </LinearLayout>

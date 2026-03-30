@@ -24,6 +24,7 @@ public class TarefasActivity extends AppCompatActivity {
             btnPlay2.setOnClickListener(v ->
                     Toast.makeText(this, "Iniciando exercício 2", Toast.LENGTH_SHORT).show()
             );
+
         }
     }
 
