@@ -10,13 +10,23 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- BOTÃO VOLTAR -->
+        <Button
+            android:id="@+id/btnVoltar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="← Voltar"
+            android:backgroundTint="#CCCCCC"
+            android:textColor="#000000"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tarefas de Casa"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="#6EC1C6"/>
+            android:textColor="#6EC1C6"
+            android:layout_marginTop="10dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,9 +50,8 @@
                 android:src="@drawable/img_exercicio1"/>
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:orientation="vertical"
                 android:layout_marginStart="12dp">
 
@@ -55,18 +64,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Incline a cabeça para o lado, segurando por 15 segundos. Repita 3 vezes."/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="0 / 1 sessões realizadas"/>
             </LinearLayout>
-
-            <ImageButton
-                android:id="@+id/btnPlay1"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_circulo"
-                android:src="@drawable/ic_play"
-                android:scaleType="center"
-                android:contentDescription="Play"
-            android:foreground="?attr/selectableItemBackgroundBorderless"/>
 
         </LinearLayout>
 
@@ -86,9 +90,8 @@
                 android:src="@drawable/img_exercicio2"/>
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:orientation="vertical"
                 android:layout_marginStart="12dp">
 
@@ -101,15 +104,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Deitado de barriga para baixo, levante o tronco levemente e segure por 10 segundos. Repita 3 vezes."/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="0 / 1 sessões realizadas"/>
             </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/btnPlay2"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_play"
-                android:background="@null"/>
         </LinearLayout>
 
         <Button
