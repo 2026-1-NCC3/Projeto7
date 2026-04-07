@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- Layout principal da tela -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:background="#F5F5F5"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- TÍTULO DA TELA -->
-
+    <!-- Detalhes da consulta -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +17,7 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <!-- IMAGEM (LOGO / BOTÃO VOLTAR) -->
+    <!-- Logo maya -->
     <ImageView
         android:id="@+id/btnVoltar"
         android:layout_width="198dp"
@@ -27,7 +26,7 @@
         android:layout_margin="16dp"
         android:src="@drawable/logo_semfundo" />
 
-    <!-- CARD DE DATA E HORÁRIO -->
+
     <LinearLayout
         android:orientation="vertical"
         android:background="#FFFFFF"
@@ -36,14 +35,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- DIA DA SEMANA -->
+      <!-- Tamanho campo data (detalhes da consulta) -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Quarta-feira"
             android:textStyle="bold" />
 
-        <!-- DATA -->
         <TextView
             android:id="@+id/txtData"
             android:layout_width="wrap_content"
@@ -51,7 +49,6 @@
             android:text="25 de Abril"
             android:textStyle="bold" />
 
-        <!-- HORÁRIO -->
         <TextView
             android:id="@+id/txtHorario"
             android:layout_width="wrap_content"
@@ -61,7 +58,7 @@
 
     </LinearLayout>
 
-    <!-- CARD DE ANOTAÇÕES -->
+     <!-- Tamanho Campo anotações -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,14 +68,14 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- TÍTULO -->
+     <!-- Anotações -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Anotações"
             android:textStyle="bold" />
 
-        <!-- TEXTO DAS ANOTAÇÕES -->
+      <!-- Tópicos anotações -->
         <TextView
             android:id="@+id/txtAnotacoes"
             android:layout_width="wrap_content"
@@ -88,7 +85,7 @@
 
     </LinearLayout>
 
-    <!-- BOTÃO VER TAREFAS -->
+      <!-- Botoes -->
     <Button
         android:id="@+id/btnVerTarefas"
         android:layout_width="match_parent"
@@ -98,7 +95,7 @@
         android:text="VER TAREFAS"
         android:textColor="#FFFFFF" />
 
-    <!-- BOTÃO ENVIAR MENSAGEM -->
+
     <Button
         android:id="@+id/btnMensagem"
         android:layout_width="match_parent"
