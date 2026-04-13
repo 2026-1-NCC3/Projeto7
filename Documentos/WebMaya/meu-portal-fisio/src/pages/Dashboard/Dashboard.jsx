@@ -4,6 +4,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./Dashboard.css";
 import logosemfundo from "../../assets/logosemfundo.png";
+
 import {
   FiFileText,
   FiCalendar,
@@ -14,240 +15,254 @@ import {
   FiMenu,
   FiBell,
   FiMessageSquare,
-  FiChevronLeft,
   FiChevronRight,
   FiPlus,
   FiActivity,
   FiHeart,
   FiUser,
+  FiClock,
+  FiTrendingUp,
+  FiCheck,
 } from "react-icons/fi";
 
+/* ================== CONFIG ================== */
+
 const menuItems = [
-  { icon: FiFileText,  label: "Prontuários",  path: "/prontuarios" },
-  { icon: FiCalendar,  label: "Agenda",        path: "/agenda" },
-  { icon: FiUsers,     label: "Pacientes",     path: "/pacientes" },
-  { icon: FiActivity,  label: "Exercícios",    path: "/exercicios" },
-  { icon: FiFolder,    label: "Documentos",    path: "/documentos" },
-  { icon: FiSettings,  label: "Configurações", path: "/configuracoes" },
+  { icon: FiFileText,  label: "Prontuários",   path: "/prontuarios" },
+  { icon: FiCalendar,  label: "Agenda",         path: "/agenda" },
+  { icon: FiUsers,     label: "Pacientes",      path: "/pacientes" },
+  { icon: FiActivity,  label: "Exercícios",     path: "/exercicios" },
+  { icon: FiFolder,    label: "Documentos",     path: "/documentos" },
+  { icon: FiSettings,  label: "Configurações",  path: "/configuracoes" },
 ];
 
-const statsCards = [
-  { icon: FiFileText,  label: "Prontuários",         value: "18" },
-  { icon: FiCalendar,  label: "Consultas Hoje",      value: "4",  badge: 1 },
-  { icon: FiUsers,     label: "Novos Pacientes",     value: "2" },
-  { icon: FiActivity,  label: "Plano de Exercícios", value: "7",  badge: 1 },
-  { icon: FiFolder,    label: "Documentos",          value: "5" },
+/* ================== MOCK DATA (substituir por chamadas de API) ================== */
+
+// TODO: GET /api/stats/today
+const stats = [
+  { id: 1, label: "Pacientes hoje", value: "8",   icon: FiUsers,       color: "stat-teal"   },
+  { id: 2, label: "Sessões feitas", value: "5",   icon: FiCheck,       color: "stat-green"  },
+  { id: 3, label: "Próxima em",     value: "40m", icon: FiClock,       color: "stat-amber"  },
+  { id: 4, label: "Taxa de retorno",value: "92%", icon: FiTrendingUp,  color: "stat-rose"   },
 ];
 
+// TODO: GET /api/appointments?date=<selectedDate>
 const consultas = [
-  { hora: "10:00", nome: "João Silva",  tipo: "Fisioterapia – Reabilitação" },
-  { hora: "14:00", nome: "Ana Paula",   tipo: "RPG" },
-  { hora: "16:00", nome: "Carlos Lima", tipo: "Pilates Clínico" },
+  { id: 1, hora: "10:00", nome: "João Silva",   tipo: "Fisioterapia",  status: "confirmado" },
+  { id: 2, hora: "14:00", nome: "Ana Paula",    tipo: "RPG",           status: "pendente"   },
+  { id: 3, hora: "16:30", nome: "Carlos Melo",  tipo: "Pilates",       status: "confirmado" },
 ];
 
+// TODO: GET /api/activities/today
 const atividades = [
-  { icon: FiActivity, nome: "Exercícios de alongamento",  sub: "João Silva",  hora: "09:00" },
-  { icon: FiHeart,    nome: "Sessão de fortalecimento",   sub: "Ana Paula",   hora: "11:00" },
-  { icon: FiFileText, nome: "RPG – Postura e equilíbrio", sub: "Carlos Lima", hora: "15:00" },
+  { id: 1, nome: "Alongamento lombar",   paciente: "João Silva", hora: "09:00", icon: FiActivity },
+  { id: 2, nome: "Fortalecimento glúteo", paciente: "Ana Paula",  hora: "11:00", icon: FiHeart    },
+  { id: 3, nome: "Mobilidade cervical",  paciente: "Carlos Melo", hora: "15:00", icon: FiActivity },
 ];
 
-function MiniCalendar({ date, setDate }) {
-    const ano = date.getFullYear();
-    const mes = date.getMonth();
-  
-    const nomeMes = new Date(ano, mes).toLocaleString("pt-BR", { month: "long", year: "numeric" });
-  
-    const primeiroDia = new Date(ano, mes, 1).getDay();
-    const totalDias = new Date(ano, mes + 1, 0).getDate();
-  
-    const celulas = [];
-    for (let i = 0; i < primeiroDia; i++) celulas.push(null);
-    for (let d = 1; d <= totalDias; d++) celulas.push(d);
-  
-    const hoje = new Date();
-    const ehHoje = (d) =>
-      d === hoje.getDate() && mes === hoje.getMonth() && ano === hoje.getFullYear();
-  
-    const ehSelecionado = (d) =>
-      d === date.getDate() && mes === date.getMonth() && ano === date.getFullYear();
-  
-    return (
-      <div className="mini-cal">
-        <div className="cal-nav">
-          <button onClick={() => setDate(new Date(ano, mes - 1, 1))}>
-            <FiChevronLeft />
-          </button>
-          <span style={{ textTransform: "capitalize" }}>{nomeMes}</span>
-          <button onClick={() => setDate(new Date(ano, mes + 1, 1))}>
-            <FiChevronRight />
-          </button>
-        </div>
-        <table className="cal-table">
-          <thead>
-            <tr>{["D","S","T","Q","Q","S","S"].map((d, i) => <th key={i}>{d}</th>)}</tr>
-          </thead>
-          <tbody>
-            {Array.from({ length: Math.ceil(celulas.length / 7) }, (_, s) => (
-              <tr key={s}>
-                {celulas.slice(s * 7, s * 7 + 7).map((d, i) => (
-                  <td
-                    key={i}
-                    className={ehHoje(d) ? "cal-today" : ehSelecionado(d) ? "cal-selected" : ""}
-                    onClick={() => d && setDate(new Date(ano, mes, d))}
-                  >
-                    {d || ""}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
-  }
+/* ================== COMPONENT ================== */
 
 export default function Dashboard() {
-  const navigate = useNavigate();
-  const [date, setDate] = useState(new Date());
+  const navigate  = useNavigate();
+  const [date, setDate]             = useState(new Date());
+  const [sidebarOpen, setSidebar]   = useState(false);
+  const [activePath, setActivePath] = useState("/");
+
+  const handleNav = (path) => {
+    setActivePath(path);
+    navigate(path);
+  };
 
   return (
-    <div className="dash-layout">
+    <div className={`dash-layout ${sidebarOpen ? "sidebar-expanded" : ""}`}>
+
+      {/* ── SIDEBAR ──────────────────────────────────────── */}
       <aside className="dash-sidebar">
-        <div className="sidebar-profile">
-          <div className="profile-avatar"><FiUser /></div>
+
+        {/* Brand */}
+        <div className="sidebar-brand">
           <img src={logosemfundo} alt="logo" className="sidebar-logo" />
         </div>
 
+        {/* Profile chip */}
+        <div className="sidebar-profile">
+          <div className="profile-avatar">MY</div>
+          <div className="profile-info">
+            <span className="profile-name">Maya Yamamoto</span>
+            <span className="profile-role">Fisioterapeuta</span>
+          </div>
+        </div>
+
+        {/* Nav */}
         <nav className="sidebar-nav">
-          {menuItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <button key={item.path} className="nav-item" onClick={() => navigate(item.path)}>
-                <span className="nav-icon"><Icon /></span>
-                {item.label}
-              </button>
-            );
-          })}
+          <p className="nav-section-label">Menu</p>
+          {menuItems.map(({ icon: Icon, label, path }) => (
+            <button
+              key={path}
+              className={`nav-item ${activePath === path ? "nav-item--active" : ""}`}
+              onClick={() => handleNav(path)}
+            >
+              <span className="nav-icon-wrap"><Icon /></span>
+              <span className="nav-label">{label}</span>
+              {activePath === path && <FiChevronRight className="nav-chevron" />}
+            </button>
+          ))}
         </nav>
 
-        <button className="nav-item nav-sair" onClick={() => navigate("/login")}>
-          <span className="nav-icon"><FiLogOut /></span>
-          Sair
+        <button
+          className="nav-item nav-sair"
+          onClick={() => navigate("/login")}
+        >
+          <span className="nav-icon-wrap"><FiLogOut /></span>
+          <span className="nav-label">Sair</span>
         </button>
       </aside>
 
+      {/* ── MAIN ─────────────────────────────────────────── */}
       <div className="dash-main">
+
+        {/* HEADER */}
         <header className="dash-header">
-          <button className="header-menu-btn"><FiMenu /></button>
+          <button
+            className="header-menu-btn"
+            onClick={() => setSidebar(!sidebarOpen)}
+            aria-label="Toggle menu"
+          >
+            <FiMenu />
+          </button>
+
+          <div className="header-title">
+            {/* pode exibir breadcrumb aqui */}
+          </div>
+
           <div className="header-actions">
-            <button className="header-action-btn">
+            <button className="header-action-btn" aria-label="Notificações">
               <FiBell />
               <span className="badge-notif">1</span>
-              Notificações
             </button>
-            <span className="header-divider" />
-            <button className="header-action-btn">
-              <FiMessageSquare /> Mensagens
+
+            <button className="header-action-btn" aria-label="Mensagens">
+              <FiMessageSquare />
             </button>
-            <span className="header-divider" />
-            <button className="header-action-btn" onClick={() => navigate("/login")}>
-              <FiLogOut /> Sair
-            </button>
+
             <div className="header-user">
-              <div className="header-avatar-circle">MY</div>
-              Maya Yamamoto ▾
+              <div className="header-avatar">MY</div>
             </div>
           </div>
         </header>
 
+        {/* CONTENT */}
         <div className="dash-content">
-          <div className="welcome-banner">
-            <div className="welcome-text">
-              <h1>Olá, Maya!</h1>
-              <p className="welcome-sub">Bom te ver por aqui.</p>
-              <p className="welcome-desc">Que bom te ver de novo! Vamos ao trabalho?</p>
-            </div>
-            <div className="welcome-illustration"><FiHeart /></div>
-          </div>
 
-          <div className="stats-row">
-            {statsCards.map((card) => {
-              const Icon = card.icon;
+          {/* WELCOME */}
+          <section className="welcome-banner">
+            <div className="welcome-text">
+              <h1 className="welcome-title">Olá, Maya! 👋</h1>
+              <p className="welcome-sub">
+                Segunda-feira, {date.toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" })}
+              </p>
+            </div>
+            <div className="welcome-badge">
+              <FiHeart />
+              <span>8 pacientes hoje</span>
+            </div>
+          </section>
+
+          {/* STATS */}
+          <section className="stats-row">
+            {stats.map((s) => {
+              const Icon = s.icon;
               return (
-                <div className="stat-card" key={card.label}>
-                  {card.badge && <span className="stat-badge">{card.badge}</span>}
-                  <div className="stat-icon-box"><Icon /></div>
-                  <div className="stat-info">
-                    <span className="stat-label">{card.label}</span>
-                    <span className="stat-value">{card.value}</span>
+                <div key={s.id} className={`stat-card ${s.color}`}>
+                  <div className="stat-icon"><Icon /></div>
+                  <div className="stat-body">
+                    <span className="stat-value">{s.value}</span>
+                    <span className="stat-label">{s.label}</span>
                   </div>
-                  <span className="stat-link">{card.label} ›</span>
                 </div>
               );
             })}
-          </div>
+          </section>
 
-          <div className="dash-bottom-grid">
-            <div className="card consultas-card">
+          {/* MAIN GRID */}
+          <section className="dash-grid">
+
+            {/* ── CONSULTAS ── */}
+            <div className="card card--consultas">
               <div className="card-header">
-                <h3>Próximas Consultas</h3>
-                <div className="card-header-actions">
-                  <button><FiChevronLeft /></button>
-                  <button><FiPlus /></button>
-                  <button><FiChevronRight /></button>
+                <div className="card-header-left">
+                  <FiCalendar className="card-header-icon" />
+                  <h3>Agenda do dia</h3>
                 </div>
+                {/* TODO: abrir modal de nova consulta */}
+                <button className="btn-add" aria-label="Nova consulta">
+                  <FiPlus />
+                </button>
               </div>
 
-              <div className="consultas-body">
-                <div className="mini-cal">
-                  <Calendar onChange={setDate} value={date} locale="pt-BR" />
-                </div>
+              {/* Calendar */}
+              <div className="calendar-box">
+                <Calendar
+                  onChange={setDate}   // TODO: disparar fetch de consultas por data
+                  value={date}
+                  locale="pt-BR"
+                />
+              </div>
 
-                <div className="consulta-list">
-                  <p className="consulta-date">Hoje, 08 de abril</p>
-                  {consultas.map((c, i) => (
-                    <div className="consulta-item" key={i}>
-                      <span className="consulta-hora">{c.hora}</span>
-                      <div>
-                        <strong>{c.nome}</strong>
-                        <p>{c.tipo}</p>
-                      </div>
+              {/* Lista de consultas */}
+              <ul className="consult-list">
+                {consultas.map((c) => (
+                  <li key={c.id} className="consult-item">
+                    <div className="consult-time">{c.hora}</div>
+                    <div className="consult-info">
+                      <strong className="consult-name">{c.nome}</strong>
+                      <span className="consult-type">{c.tipo}</span>
                     </div>
-                  ))}
-                  <button className="btn-ver-agenda" onClick={() => navigate("/agenda")}>
-                    Ver Agenda
-                  </button>
-                </div>
-              </div>
+                    <span className={`consult-badge consult-badge--${c.status}`}>
+                      {c.status}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <div className="card atividades-card">
+            {/* ── ATIVIDADES ── */}
+            <div className="card card--atividades">
               <div className="card-header">
-                <h3>Atividades Recomendadas</h3>
-                <div className="card-header-actions">
-                  <button><FiChevronLeft /></button>
-                  <button><FiChevronRight /></button>
+                <div className="card-header-left">
+                  <FiActivity className="card-header-icon" />
+                  <h3>Atividades</h3>
                 </div>
+                <span className="card-count">{atividades.length} hoje</span>
               </div>
-              <div className="atividades-list">
-                {atividades.map((a, i) => {
+
+              <ul className="activity-list">
+                {atividades.map((a) => {
                   const Icon = a.icon;
                   return (
-                    <div className="atividade-item" key={i}>
-                      <div className="ativ-icon-box"><Icon /></div>
-                      <div className="ativ-info">
-                        <strong>{a.nome}</strong>
-                        <p>{a.sub}</p>
+                    <li key={a.id} className="activity-item">
+                      <div className="activity-icon-wrap">
+                        <Icon />
                       </div>
-                      <span className="ativ-hora">{a.hora}</span>
-                    </div>
+                      <div className="activity-info">
+                        <strong className="activity-name">{a.nome}</strong>
+                        <span className="activity-patient">{a.paciente}</span>
+                      </div>
+                      <span className="activity-time">{a.hora}</span>
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
+
+              {/* CTA – futuro: navegar para lista completa */}
+              <button className="btn-ver-mais" onClick={() => navigate("/exercicios")}>
+                Ver todos os exercícios <FiChevronRight />
+              </button>
             </div>
-          </div>
+
+          </section>
         </div>
       </div>
     </div>
   );
-}   
+}
