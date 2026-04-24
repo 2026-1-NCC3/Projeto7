@@ -1,214 +1,156 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
-import "./Dashboard.css";
-import Sidebar from "./pages/Sidebar/Sidebar";
+import { useEffect, useState } from 'react';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import { FiCalendar, FiCheckCircle, FiClock, FiUsers } from 'react-icons/fi';
+import { apiRequest } from '../../lib/api';
 
-import {
-  FiCalendar,
-  FiMenu,
-  FiBell,
-  FiMessageSquare,
-  FiChevronRight,
-  FiPlus,
-  FiActivity,
-  FiHeart,
-  FiClock,
-  FiTrendingUp,
-  FiCheck,
-  FiUsers
-} from "react-icons/fi";
+const statusLabels = {
+  scheduled: 'Agendado',
+  confirmed: 'Confirmado',
+  pending: 'Pendente',
+};
 
-/* MOCK DATA */
-
-const stats = [
-  { id: 1, label: "Pacientes hoje", value: "8", icon: FiUsers, color: "stat-teal" },
-  { id: 2, label: "Sessões feitas", value: "5", icon: FiCheck, color: "stat-green" },
-  { id: 3, label: "Próxima em", value: "40m", icon: FiClock, color: "stat-amber" },
-  { id: 4, label: "Taxa de retorno", value: "92%", icon: FiTrendingUp, color: "stat-rose" },
-];
-
-const consultas = [
-  { id: 1, hora: "10:00", nome: "João Silva", tipo: "Fisioterapia", status: "confirmado" },
-  { id: 2, hora: "14:00", nome: "Ana Paula", tipo: "RPG", status: "pendente" },
-  { id: 3, hora: "16:30", nome: "Carlos Melo", tipo: "Pilates", status: "confirmado" },
-];
-
-const atividades = [
-  { id: 1, nome: "Alongamento lombar", paciente: "João Silva", hora: "09:00", icon: FiActivity },
-  { id: 2, nome: "Fortalecimento glúteo", paciente: "Ana Paula", hora: "11:00", icon: FiHeart },
-  { id: 3, nome: "Mobilidade cervical", paciente: "Carlos Melo", hora: "15:00", icon: FiActivity },
-];
+function formatDate(date) {
+  return new Intl.DateTimeFormat('pt-BR').format(new Date(date));
+}
 
 export default function Dashboard() {
-  const navigate = useNavigate();
+  const [summary, setSummary] = useState(null);
+  const [appointments, setAppointments] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
-  const [date, setDate] = useState(new Date());
-  const [sidebarOpen, setSidebar] = useState(false);
-  const [activePath, setActivePath] = useState("/");
+  useEffect(() => {
+    async function loadSummary() {
+      setSummary(await apiRequest('/dashboard/summary'));
+    }
+
+    loadSummary();
+  }, []);
+
+  useEffect(() => {
+    async function loadAppointments() {
+      const date = selectedDate.toISOString().slice(0, 10);
+      setAppointments(await apiRequest(`/appointments?date=${date}`));
+    }
+
+    loadAppointments();
+  }, [selectedDate]);
+
+  const stats = [
+    { label: 'Total de pacientes', value: summary?.totalPatients ?? 0, icon: FiUsers },
+    { label: 'Atendimentos de hoje', value: summary?.todaysAppointments ?? 0, icon: FiCalendar },
+    { label: 'Tarefas pendentes', value: summary?.pendingTasks ?? 0, icon: FiClock },
+  ];
 
   return (
-    <div className={`dash-layout ${sidebarOpen ? "sidebar-expanded" : ""}`}>
+    <div className="app-page">
+      <section className="card hero-card">
+        <div className="section-head">
+          <div>
+            <div className="chip">Início</div>
+            <h2 className="hero-title">{summary?.greeting || 'Olá, Maya! Que bom ver você por aqui.'}</h2>
+            <p className="subtle">Resumo rápido da rotina clínica, com foco no que importa hoje.</p>
+          </div>
+        </div>
 
-      {/* SIDEBAR */}
-      <Sidebar
-        activePath={activePath}
-        setActivePath={setActivePath}
-      />
+        <div className="stats-grid">
+          {stats.map(({ label, value, icon: Icon }) => (
+            <article className="stat-card" key={label}>
+              <div className="stat-icon"><Icon /></div>
+              <div>
+                <div className="stat-value">{value}</div>
+                <div className="subtle">{label}</div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
 
-      {/* MAIN */}
-      <div className="dash-main">
-
-        {/* HEADER */}
-        <header className="dash-header">
-          <button
-            className="header-menu-btn"
-            onClick={() => setSidebar(!sidebarOpen)}
-          >
-            <FiMenu />
-          </button>
-
-          <div className="header-actions">
-            <button className="header-action-btn">
-              <FiBell />
-              <span className="badge-notif">1</span>
-            </button>
-
-            <button className="header-action-btn">
-              <FiMessageSquare />
-            </button>
-
-            <div className="header-user">
-              <div className="header-avatar">MY</div>
+      <section className="dashboard-grid">
+        <article className="card calendar-card">
+          <div className="section-head">
+            <div>
+              <h3>Calendário</h3>
+              <div className="subtle">Selecione um dia para ver a agenda.</div>
             </div>
           </div>
-        </header>
+          <Calendar locale="pt-BR" value={selectedDate} onChange={setSelectedDate} />
+        </article>
 
-        {/* CONTENT */}
-        <div className="dash-content">
-
-          {/* WELCOME */}
-          <section className="welcome-banner">
-            <div className="welcome-text">
-              <h1 className="welcome-title">Olá, Maya 👋</h1>
-              <p className="welcome-sub">
-                {date.toLocaleDateString("pt-BR", {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                })}
-              </p>
+        <article className="card">
+          <div className="section-head">
+            <div>
+              <h3>Próximos atendimentos</h3>
+              <div className="subtle">Dados sincronizados pela API.</div>
             </div>
+          </div>
 
-            <div className="welcome-badge">
-              <FiHeart />
-              <span>8 pacientes hoje</span>
-            </div>
-          </section>
-
-          {/* STATS */}
-          <section className="stats-row">
-            {stats.map((s) => {
-              const Icon = s.icon;
-              return (
-                <div key={s.id} className={`stat-card ${s.color}`}>
-                  <div className="stat-icon">
-                    <Icon />
-                  </div>
-                  <div className="stat-body">
-                    <span className="stat-value">{s.value}</span>
-                    <span className="stat-label">{s.label}</span>
-                  </div>
+          <div className="list">
+            {(summary?.nextAppointments || []).map((appointment) => (
+              <div className="appointment-item" key={appointment.id}>
+                <div>
+                  <div className="list-title">{appointment.patientName}</div>
+                  <div className="subtle">{formatDate(appointment.date)} às {appointment.time}</div>
                 </div>
-              );
-            })}
-          </section>
-
-          {/* GRID */}
-          <section className="dash-grid">
-
-            {/* CONSULTAS */}
-            <div className="card card--consultas">
-              <div className="card-header">
-                <div className="card-header-left">
-                  <FiCalendar className="card-header-icon" />
-                  <h3>Agenda do dia</h3>
-                </div>
-
-                <button className="btn-add">
-                  <FiPlus />
-                </button>
+                <span className={`status-pill ${appointment.status}`}>{statusLabels[appointment.status] || appointment.status}</span>
               </div>
+            ))}
+          </div>
+        </article>
+      </section>
 
-              <div className="calendar-box">
-                <Calendar
-                  value={date}
-                  onChange={setDate}
-                  locale="pt-BR"
-                />
-              </div>
-
-              <ul className="consult-list">
-                {consultas.map((c) => (
-                  <li key={c.id} className="consult-item">
-                    <div className="consult-time">{c.hora}</div>
-
-                    <div className="consult-info">
-                      <strong className="consult-name">{c.nome}</strong>
-                      <span className="consult-type">{c.tipo}</span>
-                    </div>
-
-                    <span className={`consult-badge consult-badge--${c.status}`}>
-                      {c.status}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+      <section className="panel-grid">
+        <article className="card">
+          <div className="section-head">
+            <div>
+              <h3>Agenda do dia selecionado</h3>
+              <div className="subtle">{new Intl.DateTimeFormat('pt-BR', { dateStyle: 'full' }).format(selectedDate)}</div>
             </div>
+          </div>
 
-            {/* ATIVIDADES */}
-            <div className="card card--atividades">
-              <div className="card-header">
-                <div className="card-header-left">
-                  <FiActivity className="card-header-icon" />
-                  <h3>Atividades</h3>
+          <div className="list">
+            {appointments.length === 0 ? (
+              <div className="empty-state">Nenhum atendimento marcado para esta data.</div>
+            ) : appointments.map((appointment) => (
+              <div className="appointment-item" key={appointment.id}>
+                <div>
+                  <div className="list-title">{appointment.patientName}</div>
+                  <div className="subtle">{appointment.time}</div>
+                  {appointment.notes && <div className="subtle">{appointment.notes}</div>}
                 </div>
-
-                <span className="card-count">{atividades.length} hoje</span>
+                <span className={`status-pill ${appointment.status}`}>{statusLabels[appointment.status] || appointment.status}</span>
               </div>
+            ))}
+          </div>
+        </article>
 
-              <ul className="activity-list">
-                {atividades.map((a) => {
-                  const Icon = a.icon;
-                  return (
-                    <li key={a.id} className="activity-item">
-                      <div className="activity-icon-wrap">
-                        <Icon />
-                      </div>
-
-                      <div className="activity-info">
-                        <strong className="activity-name">{a.nome}</strong>
-                        <span className="activity-patient">{a.paciente}</span>
-                      </div>
-
-                      <span className="activity-time">{a.hora}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-
-              <button
-                className="btn-ver-mais"
-                onClick={() => navigate("/exercicios")}
-              >
-                Ver todos <FiChevronRight />
-              </button>
+        <article className="card">
+          <div className="section-head">
+            <div>
+              <h3>Resumo operacional</h3>
+              <div className="subtle">Atalhos mentais para uma rotina mais fluida.</div>
             </div>
+          </div>
 
-          </section>
-        </div>
-      </div>
+          <div className="list">
+            <div className="list-item">
+              <div className="list-title">Prontuários completos</div>
+              <div className="subtle">A ficha segue o modelo real de avaliação fisioterapêutica.</div>
+            </div>
+            <div className="list-item">
+              <div className="list-title">Exportação clínica</div>
+              <div className="subtle">Gere PDF com aparência de documento profissional.</div>
+            </div>
+            <div className="list-item">
+              <div className="list-title">Sidebar estável</div>
+              <div className="subtle">Navegação fixa no desktop e menu responsivo no tablet e mobile.</div>
+            </div>
+            <div className="list-item">
+              <div className="chip"><FiCheckCircle /> Fluxo mais simples e intuitivo.</div>
+            </div>
+          </div>
+        </article>
+      </section>
     </div>
   );
 }
