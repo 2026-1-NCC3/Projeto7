@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Maya Yamamoto</string>
+    <string name="btn_vamos_la">Vamos lá?</string>
+    <string name="btn_entrar">Entrar</string>
+    <string name="hint_email">seu@email.com</string>
+    <string name="hint_senha">••••••••</string>
 </resources>

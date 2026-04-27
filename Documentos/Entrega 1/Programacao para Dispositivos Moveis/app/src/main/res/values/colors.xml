@@ -2,4 +2,21 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Cores principais do app Maya -->
+    <color name="teal_principal">#00BFA5</color>
+    <color name="teal_escuro">#00897B</color>
+    <color name="marrom_botao">#A0785A</color>
+    <color name="preto">#000000</color>
+
+    <!-- Neutros -->
+    <color name="branco">#FFFFFF</color>
+    <color name="fundo_cinza">#F4F4F4</color>
+    <color name="cinza_escuro">#333333</color>
+    <color name="cinza_medio">#888888</color>
+    <color name="cinza_claro">#E0E0E0</color>
+
+    <!-- Cor ativa/inativa da barra de navegação -->
+    <color name="nav_ativo">#00BFA5</color>
+    <color name="nav_inativo">#AAAAAA</color>
 </resources>
