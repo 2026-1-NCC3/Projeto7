@@ -1,0 +1,32 @@
+.patients-page {
+  min-width: 0;
+}
+
+.patients-list-layout {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.patients-page .data-table {
+  margin-top: 0.25rem;
+}
+
+.patients-form-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(33, 59, 59, 0.28);
+}
+
+.patients-form-card {
+  width: min(620px, 100%);
+  max-height: min(760px, calc(100vh - 3rem));
+  overflow-y: auto;
+}
+
+.patients-form-card .button-row {
+  justify-content: flex-end;
+}

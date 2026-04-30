@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { FiDownload, FiFileText, FiPlus, FiTrash2 } from 'react-icons/fi';
 import { apiRequest } from '../../lib/api';
 import { exportRecordPdf } from './recordPdf';
+import './Prontuários.css';
 
 const apresentacaoOptions = [
   { value: 'deambulando', label: 'Deambulando' },
@@ -273,7 +274,7 @@ export default function RecordsPage() {
   }
 
   return (
-    <div className="app-page">
+    <div className="records-page app-page">
       <section className="card">
         <div className="section-head">
           <div>

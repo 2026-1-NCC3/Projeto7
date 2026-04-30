@@ -1,0 +1,20 @@
+.protected-route-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+}
+
+.protected-route-card {
+  width: min(1040px, 100%);
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+  border-radius: 36px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(217, 232, 232, 0.8);
+  font-weight: 700;
+  color: var(--text-soft);
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { FiEye, FiTrash2 } from 'react-icons/fi';
+import { FiEye, FiPlus, FiTrash2 } from 'react-icons/fi';
 import { apiRequest } from '../../lib/api';
+import './Pacientes.css';
 
 const emptyForm = {
   name: '',
@@ -27,6 +28,7 @@ export default function PatientsPage() {
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState(null);
   const [selectedPatient, setSelectedPatient] = useState(null);
+  const [showForm, setShowForm] = useState(false);
 
   async function loadPatients() {
     setPatients(await apiRequest('/patients'));
@@ -35,6 +37,24 @@ export default function PatientsPage() {
   useEffect(() => {
     loadPatients();
   }, []);
+
+  function openCreateForm() {
+    setForm(emptyForm);
+    setEditingId(null);
+    setShowForm(true);
+  }
+
+  function openEditForm(patient) {
+    setEditingId(patient.id);
+    setForm(patient);
+    setShowForm(true);
+  }
+
+  function closeForm() {
+    setForm(emptyForm);
+    setEditingId(null);
+    setShowForm(false);
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -45,8 +65,7 @@ export default function PatientsPage() {
       await apiRequest('/patients', { method: 'POST', body: JSON.stringify(form) });
     }
 
-    setForm(emptyForm);
-    setEditingId(null);
+    closeForm();
     loadPatients();
   }
 
@@ -58,14 +77,18 @@ export default function PatientsPage() {
   }
 
   return (
-    <div className="app-page">
-      <section className="split-layout">
+    <div className="patients-page app-page">
+      <section className="patients-list-layout">
         <article className="card">
           <div className="section-head">
             <div>
               <h2>Pacientes</h2>
-              <div className="subtle">Cadastros enxutos com acesso rápido ao prontuário.</div>
+              <div className="subtle">Cadastros simples com acesso rápido aos dados principais!</div>
             </div>
+            <button className="btn" type="button" onClick={openCreateForm}>
+              <FiPlus style={{ marginRight: 8 }} />
+              Novo paciente
+            </button>
           </div>
 
           <table className="data-table">
@@ -92,7 +115,7 @@ export default function PatientsPage() {
                   </td>
                   <td>
                     <div className="button-row">
-                      <button className="btn-secondary" onClick={() => { setEditingId(patient.id); setForm(patient); }}>
+                      <button className="btn-secondary" onClick={() => openEditForm(patient)}>
                         Editar
                       </button>
                       <button className="btn-danger" onClick={() => handleDelete(patient.id)}>
@@ -105,58 +128,68 @@ export default function PatientsPage() {
             </tbody>
           </table>
         </article>
-
-        <article className="card">
-          <div className="section-head">
-            <div>
-              <h2>{editingId ? 'Editar paciente' : 'Criar paciente'}</h2>
-              <div className="subtle">Informações essenciais com labels sempre visíveis.</div>
-            </div>
-          </div>
-
-          <form className="field-grid" onSubmit={handleSubmit}>
-            <div className="field">
-              <label>Nome</label>
-              <input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} required />
-            </div>
-            <div className="field">
-              <label>Data de nascimento</label>
-              <input type="date" value={form.birth_date} onChange={(event) => setForm({ ...form, birth_date: event.target.value })} required />
-            </div>
-            <div className="field-grid two">
-              <div className="field">
-                <label>Telefone</label>
-                <input value={form.phone} onChange={(event) => setForm({ ...form, phone: event.target.value })} />
-              </div>
-              <div className="field">
-                <label>E-mail</label>
-                <input type="email" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} />
-              </div>
-            </div>
-            <div className="field">
-              <label>Diagnóstico / condição principal</label>
-              <input value={form.main_condition} onChange={(event) => setForm({ ...form, main_condition: event.target.value })} />
-            </div>
-            <div className="field">
-              <label>Observações</label>
-              <textarea value={form.notes} onChange={(event) => setForm({ ...form, notes: event.target.value })} />
-            </div>
-            <div className="button-row">
-              <button className="btn" type="submit">{editingId ? 'Salvar alterações' : 'Criar paciente'}</button>
-              <button className="btn-secondary" type="button" onClick={() => { setForm(emptyForm); setEditingId(null); }}>
-                Limpar
-              </button>
-            </div>
-          </form>
-        </article>
       </section>
+
+      {showForm && (
+        <div className="patients-form-overlay" onClick={closeForm}>
+          <article
+            className="card patients-form-card"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="patients-form-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="section-head">
+              <div>
+                <h2 id="patients-form-title">{editingId ? 'Editar paciente' : 'Criar paciente'}</h2>
+                <div className="subtle">Preencha as informações essenciais.</div>
+              </div>
+            </div>
+
+            <form className="field-grid" onSubmit={handleSubmit}>
+              <div className="field">
+                <label>Nome</label>
+                <input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} required />
+              </div>
+              <div className="field">
+                <label>Data de nascimento</label>
+                <input type="date" value={form.birth_date} onChange={(event) => setForm({ ...form, birth_date: event.target.value })} required />
+              </div>
+              <div className="field-grid two">
+                <div className="field">
+                  <label>Telefone</label>
+                  <input value={form.phone} onChange={(event) => setForm({ ...form, phone: event.target.value })} />
+                </div>
+                <div className="field">
+                  <label>E-mail</label>
+                  <input type="email" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} />
+                </div>
+              </div>
+              <div className="field">
+                <label>Diagnóstico / condição principal</label>
+                <input value={form.main_condition} onChange={(event) => setForm({ ...form, main_condition: event.target.value })} />
+              </div>
+              <div className="field">
+                <label>Observações</label>
+                <textarea value={form.notes} onChange={(event) => setForm({ ...form, notes: event.target.value })} />
+              </div>
+              <div className="button-row">
+                <button className="btn" type="submit">{editingId ? 'Salvar alteracoes' : 'Criar paciente'}</button>
+                <button className="btn-secondary" type="button" onClick={closeForm}>
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </article>
+        </div>
+      )}
 
       {selectedPatient && (
         <section className="card">
           <div className="section-head">
             <div>
               <h2>{selectedPatient.name}</h2>
-              <div className="subtle">Idade {getAge(selectedPatient.birth_date)} • {selectedPatient.email || 'Sem e-mail cadastrado'}</div>
+              <div className="subtle">Idade {getAge(selectedPatient.birth_date)} - {selectedPatient.email || 'Sem e-mail cadastrado'}</div>
             </div>
           </div>
 
@@ -166,12 +199,12 @@ export default function PatientsPage() {
               <div className="subtle">{selectedPatient.phone || '-'}</div>
             </div>
             <div className="list-item">
-              <div className="list-title">Condição principal</div>
+              <div className="list-title">Condicao principal</div>
               <div className="subtle">{selectedPatient.main_condition || '-'}</div>
             </div>
             <div className="list-item" style={{ gridColumn: '1 / -1' }}>
-              <div className="list-title">Observações</div>
-              <div className="subtle">{selectedPatient.notes || 'Nenhuma observação registrada.'}</div>
+              <div className="list-title">Observacoes</div>
+              <div className="subtle">{selectedPatient.notes || 'Nenhuma observacao registrada.'}</div>
             </div>
           </div>
         </section>

@@ -1,24 +1,25 @@
 import { useNavigate } from "react-router-dom";
-import logosemfundo from "../../assets/logosemfundo.png";
+import mylogo from "../../assets/mylogo.png";
+import "./BarraLateral.css";
 
 import {
-  FiFileText,
-  FiCalendar,
-  FiUsers,
-  FiFolder,
-  FiSettings,
-  FiLogOut,
-  FiChevronRight,
   FiActivity,
+  FiCalendar,
+  FiChevronRight,
+  FiFileText,
+  FiFolder,
+  FiLogOut,
+  FiSettings,
+  FiUsers,
 } from "react-icons/fi";
 
 const menuItems = [
-  { icon: FiFileText,  label: "Prontuários",   path: "/prontuarios" },
-  { icon: FiCalendar,  label: "Agenda",        path: "/agenda" },
-  { icon: FiUsers,     label: "Pacientes",     path: "/pacientes" },
-  { icon: FiActivity,  label: "Exercícios",    path: "/exercicios" },
-  { icon: FiFolder,    label: "Documentos",    path: "/documentos" },
-  { icon: FiSettings,  label: "Configurações", path: "/configuracoes" },
+  { icon: FiFileText, label: "Prontuários", path: "/prontuarios" },
+  { icon: FiCalendar, label: "Agenda", path: "/agenda" },
+  { icon: FiUsers, label: "Pacientes", path: "/pacientes" },
+  { icon: FiActivity, label: "Exercícios", path: "/exercicios" },
+  { icon: FiFolder, label: "Documentos", path: "/documentos" },
+  { icon: FiSettings, label: "Configurações", path: "/configuracoes" },
 ];
 
 function Sidebar({ activePath, setActivePath }) {
@@ -30,45 +31,41 @@ function Sidebar({ activePath, setActivePath }) {
   };
 
   return (
-    <aside className="dash-sidebar">
-      
-      {/* Logo */}
-      <div className="sidebar-brand">
-        <img src={logosemfundo} alt="logo" className="sidebar-logo" />
+    <aside className="barra-lateral">
+      <div className="barra-lateral-marca">
+        <img src={mylogo} alt="MY" className="barra-lateral-logo" />
       </div>
 
-      {/* Menu */}
-      <nav className="sidebar-nav">
-        <p className="nav-section-label">Menu</p>
+      <nav className="barra-lateral-menu">
+        <p className="barra-lateral-secao">Menu</p>
 
         {menuItems.map(({ icon: Icon, label, path }) => (
           <button
             key={path}
-            className={`nav-item ${activePath === path ? "nav-item--active" : ""}`}
+            className={`barra-lateral-item ${activePath === path ? "barra-lateral-item-ativo" : ""}`}
             onClick={() => handleNav(path)}
           >
-            <span className="nav-icon-wrap">
+            <span className="barra-lateral-icone">
               <Icon />
             </span>
 
-            <span className="nav-label">{label}</span>
+            <span className="barra-lateral-texto">{label}</span>
 
             {activePath === path && (
-              <FiChevronRight className="nav-chevron" />
+              <FiChevronRight className="barra-lateral-seta" />
             )}
           </button>
         ))}
       </nav>
 
-      {/* Sair */}
       <button
-        className="nav-item nav-sair"
+        className="barra-lateral-item barra-lateral-sair"
         onClick={() => navigate("/login")}
       >
-        <span className="nav-icon-wrap">
+        <span className="barra-lateral-icone">
           <FiLogOut />
         </span>
-        <span className="nav-label">Sair</span>
+        <span className="barra-lateral-texto">Sair</span>
       </button>
     </aside>
   );

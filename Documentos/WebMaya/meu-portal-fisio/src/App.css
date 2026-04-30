@@ -1,4 +1,3 @@
-.app-page {
-  display: grid;
-  gap: 1.5rem;
+.app-routes {
+  min-height: 100%;
 }

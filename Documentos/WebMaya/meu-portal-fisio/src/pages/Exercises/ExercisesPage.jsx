@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { apiRequest } from '../../lib/api';
+import './Exercicios.css';
 
 const emptyForm = {
   name: '',
@@ -42,7 +43,7 @@ export default function ExercisesPage() {
   }
 
   return (
-    <div className="app-page">
+    <div className="exercises-page app-page">
       <section className="split-layout">
         <article className="card">
           <div className="section-head">

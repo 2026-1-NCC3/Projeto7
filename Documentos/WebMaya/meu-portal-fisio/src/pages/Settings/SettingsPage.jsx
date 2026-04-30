@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { apiRequest } from '../../lib/api';
 import { useAuth } from '../../context/AuthContext';
+import './Configuracoes.css';
 
 export default function SettingsPage() {
   const [settings, setSettings] = useState(null);
@@ -15,7 +16,7 @@ export default function SettingsPage() {
   }, []);
 
   if (!settings) {
-    return <div className="card">Carregando configurações...</div>;
+    return <div className="settings-page-loading card">Carregando configurações...</div>;
   }
 
   async function handleSubmit(event) {
@@ -29,7 +30,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="app-page">
+    <div className="settings-page app-page">
       <section className="split-layout">
         <article className="card">
           <div className="section-head">

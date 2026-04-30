@@ -2,20 +2,19 @@ import { useMemo, useState } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   FiActivity,
-  FiBell,
   FiCalendar,
   FiFileText,
   FiFolder,
   FiGrid,
   FiLogOut,
   FiMenu,
-  FiMessageSquare,
   FiSettings,
-  FiUser,
   FiUsers,
   FiX,
 } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
+import mylogo from '../assets/mylogo.png';
+import './LayoutAplicacao.css';
 
 const navigation = [
   { to: '/inicio', label: 'Início', icon: FiGrid },
@@ -28,17 +27,13 @@ const navigation = [
 ];
 
 function SidebarContent({ onNavigate }) {
-  const { admin, logout } = useAuth();
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   return (
     <div className="sidebar-card">
       <div className="brand-block">
-        <div className="brand-mark">MY</div>
-        <div>
-          <div className="brand-title">Maya Yamamoto</div>
-          <div className="muted">Gestão clínica em RPG</div>
-        </div>
+        <img src={mylogo} alt="MY" className="sidebar-brand-logo" />
       </div>
 
       <nav className="sidebar-nav" aria-label="Navegação principal">
@@ -56,19 +51,11 @@ function SidebarContent({ onNavigate }) {
       </nav>
 
       <div className="sidebar-footer">
-        <div className="sidebar-admin">
-          <div className="avatar">{admin?.name?.slice(0, 2).toUpperCase() || 'MY'}</div>
-          <div>
-            <div className="list-title">{admin?.name || 'Maya Yamamoto'}</div>
-            <div className="subtle">{admin?.profession || 'Fisioterapeuta'}</div>
-          </div>
-        </div>
-
         <button
-          className="btn-secondary"
+          className="btn-secondary sidebar-logout"
           onClick={() => {
             logout();
-            navigate('/login');
+            navigate('/login', { replace: true });
           }}
         >
           <FiLogOut style={{ marginRight: 8 }} />
@@ -81,18 +68,17 @@ function SidebarContent({ onNavigate }) {
 
 export default function AppShell() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { admin } = useAuth();
   const location = useLocation();
 
   const pageCopy = useMemo(() => {
     const map = {
-      '/inicio': { chip: 'Visão geral', title: 'Controle clínico simples e elegante.', subtitle: 'Tudo o que Maya precisa, sem excesso visual.' },
-      '/prontuarios': { chip: 'Ficha clínica', title: 'Prontuários fiéis ao modelo real.', subtitle: 'Campos organizados por identificação, avaliação, exame clínico e plano terapêutico.' },
-      '/agenda': { chip: 'Rotina diária', title: 'Agenda clara para o atendimento.', subtitle: 'Visualize horários, status e observações do dia.' },
-      '/pacientes': { chip: 'Cadastros', title: 'Pacientes com acesso rápido.', subtitle: 'Dados essenciais, histórico resumido e acesso ao prontuário.' },
-      '/exercicios': { chip: 'Biblioteca', title: 'Exercícios bem descritos.', subtitle: 'Oriente com clareza e mantenha o acervo organizado.' },
-      '/documentos': { chip: 'Arquivos', title: 'Documentos vinculados ao paciente.', subtitle: 'Exames, prescrições e anexos centralizados.' },
-      '/configuracoes': { chip: 'Preferências', title: 'Perfil profissional e sistema.', subtitle: 'Ajustes simples com foco em produtividade.' },
+      '/inicio': { title: 'Início', subtitle: 'Resumo da rotina clínica de hoje.' },
+      '/prontuarios': { title: 'Prontuários', subtitle: 'Avaliações, evolução e exportação em PDF.' },
+      '/agenda': { title: 'Agenda', subtitle: 'Atendimentos organizados por data.' },
+      '/pacientes': { title: 'Pacientes', subtitle: 'Cadastros e informações principais.' },
+      '/exercicios': { title: 'Exercícios', subtitle: 'Orientações terapêuticas salvas.' },
+      '/documentos': { title: 'Documentos', subtitle: 'Arquivos vinculados aos pacientes.' },
+      '/configuracoes': { title: 'Configurações', subtitle: 'Dados profissionais e preferências.' },
     };
 
     return map[location.pathname] || map['/inicio'];
@@ -122,7 +108,6 @@ export default function AppShell() {
         <div className="main-card">
           <header className="topbar">
             <div>
-              <div className="chip">{pageCopy.chip}</div>
               <h1>{pageCopy.title}</h1>
               <div className="topbar-copy">{pageCopy.subtitle}</div>
             </div>
@@ -131,15 +116,6 @@ export default function AppShell() {
               <button className="icon-btn mobile-menu" onClick={() => setMenuOpen(true)} aria-label="Abrir menu">
                 <FiMenu />
               </button>
-              <button className="icon-btn" aria-label="Notificações"><FiBell /></button>
-              <button className="icon-btn" aria-label="Mensagens"><FiMessageSquare /></button>
-              <div className="topbar-user">
-                <div className="avatar avatar-sm"><FiUser /></div>
-                <div className="topbar-user-text">
-                  <strong>{admin?.name || 'Maya Yamamoto'}</strong>
-                  <span>{admin?.profession || 'Fisioterapeuta RPG'}</span>
-                </div>
-              </div>
             </div>
           </header>
 

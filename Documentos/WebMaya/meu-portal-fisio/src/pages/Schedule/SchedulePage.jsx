@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { apiRequest } from '../../lib/api';
+import './Agenda.css';
 
 const emptyForm = {
   patient_id: '',
@@ -65,7 +66,7 @@ export default function SchedulePage() {
   }
 
   return (
-    <div className="app-page">
+    <div className="schedule-page app-page">
       <section className="split-layout">
         <article className="card calendar-card">
           <div className="section-head">

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { apiRequest } from '../../lib/api';
+import './Documentos.css';
 
 export default function DocumentsPage() {
   const [documents, setDocuments] = useState([]);
@@ -43,7 +44,7 @@ export default function DocumentsPage() {
   }
 
   return (
-    <div className="app-page">
+    <div className="documents-page app-page">
       <section className="split-layout">
         <article className="card">
           <div className="section-head">

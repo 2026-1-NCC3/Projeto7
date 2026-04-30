@@ -1,0 +1,18 @@
+.app-shell {
+  min-width: 0;
+}
+
+.main-area,
+.main-card {
+  min-width: 0;
+}
+
+.sidebar-logout {
+  min-height: 48px;
+}
+
+.sidebar-brand-logo {
+  width: 96px;
+  height: auto;
+  margin: 0 auto;
+}
