@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- botao de voltar -->
+        <Button
+            android:id="@+id/btnVoltar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="← Voltar"
+            android:backgroundTint="#CCCCCC"
+            android:textColor="#000000"/>
+<!-- Titulo tarefas de casa -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tarefas de Casa"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/tela_principal"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Titulo abaixo das "tarefas de casa" (2 exercicios atribuidos) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2 Exercícios Atribuídos"
+            android:layout_marginTop="8dp"/>
+
+        <!-- tarefa 1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#FFFFFF"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"
+            android:elevation="4dp">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/img_exercicio1"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alongamento de Trapézio"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Incline a cabeça para o lado, segurando por 15 segundos. Repita 3 vezes."/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 / 1 sessões realizadas"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- tarefa 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:elevation="4dp"
+            android:background="#FFFFFF"
+            android:padding="12dp"
+            android:layout_marginTop="12dp"
+            >
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/img_exercicio2"/> <!-- Imagem provisoria -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fortalecimento dos Paravertebrais"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Deitado de barriga para baixo, levante o tronco levemente e segure por 10 segundos. Repita 3 vezes."/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 / 1 sessões realizadas"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Sem funcionalidade (por enquanto)
+        <Button
+            android:id="@+id/btnMensagem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ENVIAR MENSAGEM"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#6EC1C6"
+            android:textColor="#FFFFFF"/>
+-->
+    </LinearLayout>
+
+</ScrollView>

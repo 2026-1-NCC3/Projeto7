@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#F5F5F5"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Detalhes da consulta -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp">
+
+        <Button
+            android:id="@+id/btnVoltar"
+            android:layout_width="83dp"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="Voltar"
+            android:textSize="13sp"
+            android:backgroundTint="#CCCCCC"
+            android:textColor="@color/preto" />
+
+        <TextView
+            android:id="@+id/txtTituloDetalhes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignTop="@id/btnVoltar"
+            android:layout_marginTop="8dp"
+            android:text="Detalhes da Consulta"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/preto" />
+
+    </RelativeLayout>
+
+    <!-- Logo maya -->
+    <ImageView
+        android:layout_width="198dp"
+        android:layout_height="62dp"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:src="@drawable/logo_semfundo" />
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="#FFFFFF"
+        android:elevation="4dp"
+        android:padding="16dp"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <!-- Tamanho campo data (detalhes da consulta) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quarta-feira"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="25 de Abril"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtHorario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Horário: 10:00 - 11:00"
+            android:layout_marginTop="8dp" />
+
+    </LinearLayout>
+
+     <!-- Tamanho Campo anotações -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:background="#FFFFFF"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+     <!-- Anotações -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Anotações"
+            android:textStyle="bold" />
+
+      <!-- Tópicos anotações -->
+        <TextView
+            android:id="@+id/txtAnotacoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="• Foco na correção da postura cervical\n• Exercícios de relaxamento" />
+
+    </LinearLayout>
+
+      <!-- Botoes -->
+    <Button
+        android:id="@+id/btnVerTarefas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/tela_principal"
+        android:text="VER TAREFAS"
+        android:textColor="#FFFFFF" />
+
+
+    <Button
+        android:id="@+id/btnMensagem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:backgroundTint="#CCCCCC"
+        android:text="ENVIAR MENSAGEM" />
+
+</LinearLayout>
