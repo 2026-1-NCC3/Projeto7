@@ -29,7 +29,6 @@ Desenvolver uma solução digital integrada, composta por aplicativo mobile, pla
 ```
 -Raiz<br>
 |<br>
-|-->Backend
 |   |
 |-->Documentos
 |   |-->Entrega 1
@@ -43,6 +42,15 @@ Desenvolver uma solução digital integrada, composta por aplicativo mobile, pla
 |   |   |-->Projeto Interdisciplinar: Aplicativo Móvel
 |   |   |-->Programação Orientada a Objetivos e Estrutura de Dados
 |   |   |-->Programação para Dispositivos Móveis
+|   |
+|   |-->BANNER PHT
+|   |
+|-->Imagens
+|   |
+|-->src
+|   |-->BackEnd
+|   |-->WebMaya
+
 |README.md
 |LICENSE
 ```
