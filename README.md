@@ -68,7 +68,7 @@ Desenvolver uma solução digital integrada, composta por aplicativo mobile, pla
 Siga os passos abaixo para instalar o aplicativo no seu dispositivo Android:
 
 ```
-1. 📥 Baixe o arquivo APK do aplicativo  
+1. 📥 Entre na pasta "src" e baixe o arquivo APK do aplicativo  
 2. 📂 Abra o arquivo APK baixado  
 3. ⚙️ Toque em **Instalar** e aguarde a conclusão  
 4. ✅ Após a instalação, abra o app normalmente
