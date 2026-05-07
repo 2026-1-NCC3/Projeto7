@@ -2,7 +2,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './RotaProtegida.css';
 
-export default function ProtectedRoute({ children }) {
+export default function RotaProtegida({ children }) {
   const { token, loading } = useAuth();
   const location = useLocation();
 

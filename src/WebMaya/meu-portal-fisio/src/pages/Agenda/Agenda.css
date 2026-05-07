@@ -3,5 +3,66 @@
 }
 
 .schedule-page .react-calendar {
+  width: 100%;
   min-width: 0;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+}
+
+.schedule-page .react-calendar__tile {
+  border-radius: 14px;
+  padding-block: 0.85rem;
+}
+
+.schedule-page .react-calendar__tile--active,
+.schedule-page .react-calendar__tile:enabled:hover,
+.schedule-page .react-calendar__tile:enabled:focus {
+  background: var(--primary-soft);
+  color: var(--text);
+}
+
+.schedule-page .appointment-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+}
+
+.schedule-page .status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.42rem 0.75rem;
+  border-radius: 999px;
+  background: #eef7f7;
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.schedule-page .status-pill.confirmed {
+  background: rgba(92, 180, 144, 0.16);
+  color: #458366;
+}
+
+.schedule-page .status-pill.pending {
+  background: rgba(240, 189, 104, 0.18);
+  color: #a9782d;
+}
+
+.schedule-page .status-pill.scheduled {
+  background: var(--primary-soft);
+  color: var(--primary-strong);
+}
+
+@media (max-width: 680px) {
+  .schedule-page .appointment-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }

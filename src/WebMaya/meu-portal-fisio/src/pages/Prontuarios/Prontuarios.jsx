@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { FiDownload, FiFileText, FiPlus, FiTrash2 } from 'react-icons/fi';
 import { apiRequest } from '../../lib/api';
-import { exportRecordPdf } from './recordPdf';
+import { exportRecordPdf } from './Prontuariospdf';
 import './Prontuários.css';
 
 const apresentacaoOptions = [
@@ -126,7 +126,7 @@ function SectionCard({ title, subtitle, children }) {
   );
 }
 
-export default function RecordsPage() {
+export default function Prontuarios() {
   const [records, setRecords] = useState([]);
   const [patients, setPatients] = useState([]);
   const [selectedPatient, setSelectedPatient] = useState('');
@@ -136,22 +136,18 @@ export default function RecordsPage() {
   const [feedback, setFeedback] = useState({ type: '', text: '' });
   const [saving, setSaving] = useState(false);
 
-  async function loadData(patientId = selectedPatient) {
+  async function loadData(patientId = selectedPatient, currentRecord = selectedRecord) {
     const [recordsData, patientsData] = await Promise.all([
       apiRequest(`/records${patientId ? `?patientId=${patientId}` : ''}`),
       apiRequest('/patients'),
     ]);
     setRecords(recordsData);
     setPatients(patientsData);
-    if (selectedRecord) {
-      const refreshed = recordsData.find((item) => item.id === selectedRecord.id);
+    if (currentRecord) {
+      const refreshed = recordsData.find((item) => item.id === currentRecord.id);
       setSelectedRecord(refreshed || null);
     }
   }
-
-  useEffect(() => {
-    loadData('');
-  }, []);
 
   useEffect(() => {
     loadData(selectedPatient);
@@ -225,17 +221,37 @@ export default function RecordsPage() {
 
   function prefillFromPatient(patientId) {
     const patient = patientMap[patientId];
-    if (!patient) return;
 
     setForm((current) => ({
       ...current,
       patient_id: patientId,
-      nome: patient.name,
-      data_nascimento: patient.birth_date,
-      telefone: patient.phone || '',
-      diagnostico_clinico: current.diagnostico_clinico || patient.main_condition || '',
-      observacoes_gerais: current.observacoes_gerais || patient.notes || '',
+      nome: patient?.name || '',
+      data_nascimento: patient?.birth_date || '',
+      telefone: patient?.phone || '',
+      diagnostico_clinico: patient ? current.diagnostico_clinico || patient.main_condition || '' : '',
+      observacoes_gerais: patient ? current.observacoes_gerais || patient.notes || '' : '',
     }));
+  }
+
+  async function handleSelectRecord(recordId) {
+    try {
+      const record = await apiRequest(`/records/${recordId}`);
+      setSelectedRecord(record);
+    } catch (error) {
+      setFeedback({ type: 'error', text: error.message });
+    }
+  }
+
+  async function handleEditRecord(recordId) {
+    try {
+      const record = await apiRequest(`/records/${recordId}`);
+      setSelectedRecord(record);
+      setEditingId(record.id);
+      setForm(mapRecordToForm(record));
+      setFeedback({ type: '', text: '' });
+    } catch (error) {
+      setFeedback({ type: 'error', text: error.message });
+    }
   }
 
   async function handleSubmit(event) {
@@ -253,7 +269,12 @@ export default function RecordsPage() {
       setEditingId(response.id);
       setForm(mapRecordToForm(response));
       setFeedback({ type: 'success', text: editingId ? 'Prontuário atualizado com sucesso.' : 'Prontuário criado com sucesso.' });
-      await loadData();
+      const responsePatientId = String(response.patient_id);
+      if (selectedPatient && selectedPatient !== responsePatientId) {
+        setSelectedPatient(responsePatientId);
+      } else {
+        await loadData(selectedPatient, response);
+      }
     } catch (error) {
       setFeedback({ type: 'error', text: error.message });
     } finally {
@@ -270,7 +291,7 @@ export default function RecordsPage() {
       setForm(emptyForm);
     }
     setFeedback({ type: 'success', text: 'Prontuário excluído.' });
-    loadData();
+    loadData(selectedPatient, null);
   }
 
   return (
@@ -300,7 +321,7 @@ export default function RecordsPage() {
               key={record.id}
               className={`record-summary ${selectedRecord?.id === record.id ? 'is-active' : ''}`}
             >
-              <button className="record-summary-main" onClick={() => setSelectedRecord(record)}>
+              <button className="record-summary-main" onClick={() => handleSelectRecord(record.id)}>
                 <div>
                   <div className="list-title">{record.identificacao?.nome || record.patientName}</div>
                   <div className="subtle">{record.data_avaliacao}</div>
@@ -313,11 +334,7 @@ export default function RecordsPage() {
               <div className="record-summary-actions">
                 <button
                   className="btn-secondary"
-                  onClick={() => {
-                    setSelectedRecord(record);
-                    setEditingId(record.id);
-                    setForm(mapRecordToForm(record));
-                  }}
+                  onClick={() => handleEditRecord(record.id)}
                 >
                   Editar
                 </button>

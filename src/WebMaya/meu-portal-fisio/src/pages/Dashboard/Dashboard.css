@@ -1,0 +1,119 @@
+.dashboard-page {
+  min-width: 0;
+}
+
+.dashboard-page .hero-card {
+  overflow: hidden;
+  padding: 1.5rem;
+}
+
+.dashboard-page .hero-title {
+  margin: 0.85rem 0 0;
+  font-size: clamp(1.7rem, 2.2vw, 2.4rem);
+  font-weight: 600;
+}
+
+.dashboard-grid,
+.stats-grid {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.dashboard-grid {
+  grid-template-columns: 1.1fr 0.9fr;
+}
+
+.stats-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.stat-card {
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(217, 232, 232, 0.9);
+  border-radius: 22px;
+  background: var(--surface);
+}
+
+.stat-icon {
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: var(--primary-soft);
+  color: var(--primary-strong);
+  font-size: 1.2rem;
+}
+
+.stat-value {
+  margin-bottom: 0.18rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.dashboard-page .appointment-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+}
+
+.dashboard-page .status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.42rem 0.75rem;
+  border-radius: 999px;
+  background: #eef7f7;
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.dashboard-page .status-pill.confirmed {
+  background: rgba(92, 180, 144, 0.16);
+  color: #458366;
+}
+
+.dashboard-page .status-pill.pending {
+  background: rgba(240, 189, 104, 0.18);
+  color: #a9782d;
+}
+
+.dashboard-page .status-pill.scheduled {
+  background: var(--primary-soft);
+  color: var(--primary-strong);
+}
+
+.dashboard-page .calendar-card .react-calendar {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+}
+
+.dashboard-page .calendar-card .react-calendar__tile {
+  border-radius: 14px;
+  padding-block: 0.85rem;
+}
+
+.dashboard-page .calendar-card .react-calendar__tile--active,
+.dashboard-page .calendar-card .react-calendar__tile:enabled:hover,
+.dashboard-page .calendar-card .react-calendar__tile:enabled:focus {
+  background: var(--primary-soft);
+  color: var(--text);
+}
+
+@media (max-width: 1180px) {
+  .dashboard-grid,
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}

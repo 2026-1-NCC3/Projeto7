@@ -23,7 +23,7 @@ function getAge(birthDate) {
   return age;
 }
 
-export default function PatientsPage() {
+export default function Pacientes() {
   const [patients, setPatients] = useState([]);
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState(null);

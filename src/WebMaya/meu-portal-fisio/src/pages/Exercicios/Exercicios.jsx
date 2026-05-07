@@ -8,7 +8,7 @@ const emptyForm = {
   instructions: '',
 };
 
-export default function ExercisesPage() {
+export default function Exercicios() {
   const [exercises, setExercises] = useState([]);
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState(null);

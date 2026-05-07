@@ -4,4 +4,31 @@
 
 .exercises-page .exercise-item {
   min-width: 0;
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+}
+
+.exercises-page .record-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+.exercises-page .list-item {
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: #fff;
+}
+
+@media (max-width: 680px) {
+  .exercises-page .record-meta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }

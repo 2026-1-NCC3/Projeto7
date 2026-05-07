@@ -66,7 +66,7 @@ function SidebarContent({ onNavigate }) {
   );
 }
 
-export default function AppShell() {
+export default function LayoutAplicacao() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
 

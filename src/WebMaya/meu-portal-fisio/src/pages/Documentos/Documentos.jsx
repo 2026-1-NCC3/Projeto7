@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { apiRequest } from '../../lib/api';
 import './Documentos.css';
 
-export default function DocumentsPage() {
+export default function Documentos() {
   const [documents, setDocuments] = useState([]);
   const [patients, setPatients] = useState([]);
   const [form, setForm] = useState({

@@ -8,7 +8,32 @@
 }
 
 .patients-page .data-table {
+  width: 100%;
   margin-top: 0.25rem;
+  border-collapse: collapse;
+}
+
+.patients-page .data-table th,
+.patients-page .data-table td {
+  padding: 0.9rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.patients-page .data-table th {
+  color: var(--text-soft);
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.patients-page .list-item {
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
 }
 
 .patients-form-overlay {
@@ -29,4 +54,11 @@
 
 .patients-form-card .button-row {
   justify-content: flex-end;
+}
+
+@media (max-width: 680px) {
+  .patients-page .data-table {
+    display: block;
+    overflow-x: auto;
+  }
 }

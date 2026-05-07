@@ -3,7 +3,7 @@ import { apiRequest } from '../../lib/api';
 import { useAuth } from '../../context/AuthContext';
 import './Configuracoes.css';
 
-export default function SettingsPage() {
+export default function Configuracoes() {
   const [settings, setSettings] = useState(null);
   const { updateAdmin } = useAuth();
 

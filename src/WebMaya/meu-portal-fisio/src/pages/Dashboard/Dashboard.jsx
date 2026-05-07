@@ -3,7 +3,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { FiCalendar, FiClock, FiUsers } from 'react-icons/fi';
 import { apiRequest } from '../../lib/api';
-import './Painel.css';
+import './Dashboard.css';
 
 const statusLabels = {
   scheduled: 'Agendado',

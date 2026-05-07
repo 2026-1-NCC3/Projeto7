@@ -4,4 +4,28 @@
 
 .documents-page .document-item {
   min-width: 0;
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+}
+
+.document-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.documents-link {
+  color: var(--primary-strong);
+}
+
+@media (max-width: 680px) {
+  .document-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }

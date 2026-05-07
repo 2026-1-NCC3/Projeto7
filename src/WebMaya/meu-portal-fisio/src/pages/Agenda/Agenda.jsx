@@ -18,7 +18,7 @@ const statusLabels = {
   pending: 'Pendente',
 };
 
-export default function SchedulePage() {
+export default function Agenda() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [appointments, setAppointments] = useState([]);
   const [patients, setPatients] = useState([]);
