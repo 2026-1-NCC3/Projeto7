@@ -76,7 +76,52 @@ Siga os passos abaixo para instalar o aplicativo no seu dispositivo Android:
 ```
 ---
 
-💻 Configuração para Desenvolvimento
+# 💻 Ambiente para Desenvolvimento
+
+## 📋 Dependências Necessárias
+
+Antes de iniciar o projeto, tenha instalado em seu computador:
+
+- Node.js (versão 18 ou superior)
+- npm
+- Git
+
+---
+
+## 📥 Baixando o Repositório
+
+```bash
+git clone https://github.com/2026-1-NCC3/Projeto7
+cd Projeto7
+```
+
+---
+
+## 📦 Instalando as Dependências do Projeto
+
+```bash
+npm install
+```
+
+## ▶️ Executando o Projeto
+
+```bash
+npm run dev
+```
+
+---
+
+### 📦 Instalando os pacotes necessários
+
+```bash
+npm install
+```
+
+### ▶️ Rodando a aplicação
+
+```bash
+npm run start
+```
 
 ## 📋 Licença/License
 <a href="https://github.com/2026-1-NCC3/Projeto7">Flavor Health Tech</a> © 2026 by <a href="https://example.com">Felipe Mathey,Katiê Prado,Ricardo Oliveira,Eric Aloise</a> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
