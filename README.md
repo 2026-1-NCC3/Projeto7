@@ -1,7 +1,8 @@
+
 # <p align="center"> FECAP - Fundação de Comércio Álvares Penteado 
 
 <p align="center">
-<a href= "https://www.fecap.br/"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhZPrRa89Kma0ZZogxm0pi-tCn_TLKeHGVxywp-LXAFGR3B1DPouAJYHgKZGV0XTEf4AE&usqp=CAU" alt="FECAP - Fundação de Comércio Álvares Penteado" border="0"></a>
+<a href= "https://www.fecap.br/"><img width="640" height="641" alt="photo" src="https://github.com/user-attachments/assets/81bc1ea4-e5b4-4518-b549-d211994149b2"  border="0"></a>
 </p>
 
 
