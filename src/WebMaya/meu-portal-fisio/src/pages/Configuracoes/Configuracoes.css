@@ -4,6 +4,7 @@
 }
 
 .settings-page .toggle {
+  min-width: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,6 +13,16 @@
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   background: var(--surface-soft);
+}
+
+.settings-page .toggle > div {
+  min-width: 0;
+}
+
+@media (max-width: 680px) {
+  .settings-page .toggle {
+    align-items: flex-start;
+  }
 }
 
 .settings-page .switch {

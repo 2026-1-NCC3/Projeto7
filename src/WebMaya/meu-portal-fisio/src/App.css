@@ -5,8 +5,16 @@
 .app-page,
 .field-grid,
 .list {
+  width: 100%;
+  min-width: 0;
   display: grid;
   gap: 1rem;
+}
+
+.app-page {
+  max-width: 1180px;
+  margin-inline: auto;
+  align-content: start;
 }
 
 .field-grid.two,
@@ -15,7 +23,13 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.split-layout,
+.panel-grid {
+  min-width: 0;
+}
+
 .card {
+  min-width: 0;
   background: var(--surface);
   border: 1px solid rgba(217, 232, 232, 0.9);
   border-radius: 28px;
@@ -41,10 +55,12 @@
 .subtle,
 .muted {
   color: var(--text-soft);
+  overflow-wrap: anywhere;
 }
 
 .list-title {
   font-weight: 700;
+  overflow-wrap: anywhere;
 }
 
 .field {
@@ -85,6 +101,7 @@
 
 .button-row,
 .topbar-actions {
+  min-width: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
@@ -107,6 +124,8 @@
 .btn-danger,
 .btn-ghost {
   padding: 0.9rem 1.1rem;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .btn {
@@ -179,6 +198,12 @@
   .split-layout,
   .panel-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 940px) {
+  .app-page {
+    max-width: none;
   }
 }
 

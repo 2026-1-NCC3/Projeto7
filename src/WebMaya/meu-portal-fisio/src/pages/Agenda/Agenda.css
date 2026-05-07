@@ -2,6 +2,10 @@
   min-width: 0;
 }
 
+.schedule-page .calendar-card {
+  overflow: hidden;
+}
+
 .schedule-page .react-calendar {
   width: 100%;
   min-width: 0;
@@ -23,6 +27,7 @@
 }
 
 .schedule-page .appointment-item {
+  min-width: 0;
   display: flex;
   justify-content: space-between;
   gap: 1rem;
@@ -64,5 +69,9 @@
   .schedule-page .appointment-item {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .schedule-page .appointment-item .button-row {
+    width: 100%;
   }
 }

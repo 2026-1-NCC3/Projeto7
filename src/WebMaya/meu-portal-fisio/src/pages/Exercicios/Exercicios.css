@@ -13,10 +13,15 @@
 }
 
 .exercises-page .record-meta {
+  min-width: 0;
   display: flex;
   justify-content: space-between;
   gap: 1rem;
   align-items: center;
+}
+
+.exercises-page .record-meta > .list-title {
+  min-width: 0;
 }
 
 .exercises-page .list-item {

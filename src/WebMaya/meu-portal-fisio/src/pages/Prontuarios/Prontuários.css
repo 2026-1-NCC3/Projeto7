@@ -3,7 +3,8 @@
 }
 
 .records-page .filter-field {
-  min-width: 250px;
+  width: min(300px, 100%);
+  min-width: 220px;
 }
 
 .records-page .record-form,
@@ -12,6 +13,10 @@
   width: 100%;
   display: grid;
   gap: 1rem;
+}
+
+.records-page .section-head {
+  align-items: flex-start;
 }
 
 .records-page .field-grid.three {
@@ -48,6 +53,10 @@
   text-align: left;
 }
 
+.record-summary-main > div:first-child {
+  min-width: 0;
+}
+
 .tag-row,
 .record-summary-actions,
 .record-form-actions {
@@ -58,6 +67,7 @@
 }
 
 .tag-row {
+  max-width: 100%;
   justify-content: flex-end;
 }
 
@@ -66,6 +76,7 @@
 }
 
 .tag {
+  max-width: 100%;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -137,6 +148,7 @@
 }
 
 .evolution-item {
+  min-width: 0;
   display: grid;
   grid-template-columns: 180px 1fr auto;
   gap: 0.8rem;
@@ -159,13 +171,22 @@
 }
 
 @media (max-width: 680px) {
+  .records-page .filter-field {
+    width: 100%;
+  }
+
   .record-summary-main {
     align-items: flex-start;
     flex-direction: column;
   }
 
   .tag-row,
+  .record-summary-actions,
   .record-form-actions {
     justify-content: flex-start;
+  }
+
+  .record-summary-actions {
+    width: 100%;
   }
 }

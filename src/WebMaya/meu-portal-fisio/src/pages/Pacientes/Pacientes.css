@@ -9,8 +9,13 @@
 
 .patients-page .data-table {
   width: 100%;
+  min-width: 720px;
   margin-top: 0.25rem;
   border-collapse: collapse;
+}
+
+.patients-list-layout > .card {
+  overflow-x: auto;
 }
 
 .patients-page .data-table th,
@@ -42,7 +47,7 @@
   z-index: 60;
   display: grid;
   place-items: center;
-  padding: 1.5rem;
+  padding: 1rem;
   background: rgba(33, 59, 59, 0.28);
 }
 
@@ -57,8 +62,11 @@
 }
 
 @media (max-width: 680px) {
+  .patients-list-layout > .card {
+    margin-inline: -0.25rem;
+  }
+
   .patients-page .data-table {
-    display: block;
-    overflow-x: auto;
+    min-width: 640px;
   }
 }

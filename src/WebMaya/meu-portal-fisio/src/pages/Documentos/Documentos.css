@@ -13,6 +13,7 @@
 }
 
 .document-head {
+  min-width: 0;
   display: flex;
   justify-content: space-between;
   gap: 0.85rem;
@@ -21,6 +22,10 @@
 
 .documents-link {
   color: var(--primary-strong);
+}
+
+.document-head > div {
+  min-width: 0;
 }
 
 @media (max-width: 680px) {

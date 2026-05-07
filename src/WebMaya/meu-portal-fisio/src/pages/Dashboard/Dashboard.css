@@ -8,6 +8,7 @@
 }
 
 .dashboard-page .hero-title {
+  max-width: 880px;
   margin: 0.85rem 0 0;
   font-size: clamp(1.7rem, 2.2vw, 2.4rem);
   font-weight: 600;
@@ -15,6 +16,7 @@
 
 .dashboard-grid,
 .stats-grid {
+  min-width: 0;
   display: grid;
   gap: 1.2rem;
 }
@@ -28,6 +30,7 @@
 }
 
 .stat-card {
+  min-width: 0;
   display: flex;
   gap: 0.9rem;
   align-items: center;
@@ -55,6 +58,7 @@
 }
 
 .dashboard-page .appointment-item {
+  min-width: 0;
   display: flex;
   justify-content: space-between;
   gap: 1rem;
@@ -94,6 +98,7 @@
 
 .dashboard-page .calendar-card .react-calendar {
   width: 100%;
+  min-width: 0;
   border: none;
   background: transparent;
   font-family: inherit;
@@ -111,9 +116,24 @@
   color: var(--text);
 }
 
+@media (max-width: 1280px) {
+  .dashboard-grid,
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 1180px) {
   .dashboard-grid,
   .stats-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .dashboard-page .appointment-item,
+  .stat-card {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
