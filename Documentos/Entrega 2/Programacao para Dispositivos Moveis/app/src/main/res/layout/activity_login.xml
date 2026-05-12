@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:text="Olá novamente!"
-                android:textColor="@color/cinza_escuro"
+                android:textColor="@color/branco"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 

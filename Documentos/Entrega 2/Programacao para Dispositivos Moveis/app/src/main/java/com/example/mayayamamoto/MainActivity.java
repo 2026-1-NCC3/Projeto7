@@ -1,6 +1,7 @@
 package com.example.mayayamamoto;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,10 @@ import com.example.mayayamamoto.fragments.EvolucaoFragment;
 import com.example.mayayamamoto.fragments.HomeFragment;
 import com.example.mayayamamoto.fragments.MensagensFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,6 +70,29 @@ public class MainActivity extends AppCompatActivity {
             carregarFragment(fragmentSelecionado);
             return true;
         });
+
+        buscarDados();
+    }
+    private void buscarDados() {
+        OkHttpClient client = SupabaseClient.getClient();
+
+        Request request = new Request.Builder()
+                .url(SupabaseClient.SUPABASE_URL + "/rest/v1/sua_tabela?select=*")
+                .get()
+                .build();
+
+        new Thread(() -> {
+            try (Response response = client.newCall(request).execute()) {
+                String json = response.body().string();
+                Log.d("Supabase", json);
+
+                runOnUiThread(() -> {
+                });
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     private HomeFragment criarHomeFragment() {

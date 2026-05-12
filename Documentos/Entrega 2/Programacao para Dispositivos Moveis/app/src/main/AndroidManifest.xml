@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,34 +12,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MayaYamamoto">
 
-        <!-- TELA INICIAL DO APP -->
         <activity
             android:name=".SplashActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
-        <!-- TELA DE LOGIN -->
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
 
-        <!-- TELA PRINCIPAL COM FRAGMENTS E BOTTOM NAVIGATION -->
         <activity
             android:name=".MainActivity"
             android:exported="false" />
 
-        <!-- TELA DE DETALHES DA CONSULTA -->
         <activity
             android:name=".DetalhesConsultaActivity"
             android:exported="false" />
 
-        <!-- TELA DE TAREFAS / EXERCÍCIOS -->
         <activity
             android:name=".TarefasActivity"
             android:exported="false" />
