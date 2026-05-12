@@ -123,9 +123,10 @@ npm install
 ```bash
 npm run start
 ```
-
+```
 Entrega POO 2
 <https://github.com/2026-1-NCC3/Projeto7/tree/main/Documentos/Entrega%202/POO>
+```
 
 ## 📋 Licença/License
 <a href="https://github.com/2026-1-NCC3/Projeto7">Flavor Health Tech</a> © 2026 by <a href="https://example.com">Felipe Mathey, Katiê Prado, Ricardo Oliveira, Eric Aloise, Fecap </a> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
