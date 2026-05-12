@@ -16,7 +16,7 @@
 - [Eric Aloise](https://www.linkedin.com/in/eric-aloise-de-sousa-125881367/)
 
 ## Professores Orientadores:
-- [Vctor Bruno Alexander Rosetti de Quiroz ](https://www.linkedin.com/in/victorbarq/)
+- [Victor Bruno Alexander Rosetti de Quiroz ](https://www.linkedin.com/in/victorbarq/)
 - [Katia Milani](https://www.linkedin.com/in/katia-bossi/)
 - [Rodrigo da Rosa ](https://www.linkedin.com/in/rodrigo-da-rosa-phd/)
 - [Marco Aurelio Lima Barbosa ](https://www.linkedin.com/in/marco-aurelio-lima-barbosa/)
@@ -85,6 +85,7 @@ Antes de iniciar o projeto, tenha instalado em seu computador:
 - Node.js (versão 18 ou superior)
 - npm
 - Git
+- Android Studio
 
 ---
 
@@ -124,10 +125,11 @@ npm run start
 ```
 
 ## 📋 Licença/License
-<a href="https://github.com/2026-1-NCC3/Projeto7">Flavor Health Tech</a> © 2026 by <a href="https://example.com">Felipe Mathey,Katiê Prado,Ricardo Oliveira,Eric Aloise</a> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
+<a href="https://github.com/2026-1-NCC3/Projeto7">Flavor Health Tech</a> © 2026 by <a href="https://example.com">Felipe Mathey, Katiê Prado, Ricardo Oliveira, Eric Aloise, Fecap </a> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
 
 ## 🎓 Referências
 
 Aqui estão as referências usadas no projeto.
 
 1. <https://mayayamamoto.com.br/>
+2. <https://.com.br/>
